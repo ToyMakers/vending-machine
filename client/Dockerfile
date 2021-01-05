@@ -1,9 +1,9 @@
 FROM node:14-alpine as build
 
 WORKDIR /usr/src/app
-COPY package*.json ./
+COPY ./client/package*.json ./
 RUN yarn cache clean && yarn --update-checksums
-COPY . ./
+COPY ./client ./
 RUN yarn && yarn build
 
 FROM nginx:1.17-alpine
