@@ -33,8 +33,8 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          cd client
-          docker build . --file Dockerfile --tag ${{secrets.DOCKER_USERNAME}}/vending-machine:$(date +%s)
+          ls
+          docker build --file ./client/Dockerfile --tag ${{secrets.DOCKER_USERNAME}}/vending-machine:$(date +%s)
 
       - name: Docker Push
         run: docker push ${{secrets.DOCKER_USERNAME}}/vending-machine
