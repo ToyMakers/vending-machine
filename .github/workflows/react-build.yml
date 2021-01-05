@@ -1,0 +1,21 @@
+name: React CI
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: cd client && yarn install
+
+      - name: Build React App
+        run: cd client && yarn build
