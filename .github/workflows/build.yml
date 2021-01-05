@@ -32,9 +32,7 @@ jobs:
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
       - name: Build the Docker image
-        run: |
-          ls
-          docker build --file ./client/Dockerfile --tag ${{secrets.DOCKER_USERNAME}}/vending-machine:$(date +%s)
+        run: docker build --file ./client/Dockerfile --tag ${{secrets.DOCKER_USERNAME}}/vending-machine:$(date +%s) .
 
       - name: Docker Push
         run: docker push ${{secrets.DOCKER_USERNAME}}/vending-machine
