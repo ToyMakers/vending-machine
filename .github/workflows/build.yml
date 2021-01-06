@@ -1,4 +1,4 @@
-name: React CI
+name: vending-machine CI
 on:
   push:
     branches:
@@ -10,21 +10,10 @@ on:
       - dev
 
 jobs:
-  react_build:
+  docker_build_push:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-
-      - name: Install Dependencies
-        run: cd client && yarn install
-
-      - name: Build React App
-        run: cd client && yarn build
-
-  docker_build_push:
-    needs: [react_build]
-    runs-on: ubuntu-20.04
-    steps:
       - name: docker login
         env:
           DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
@@ -32,7 +21,7 @@ jobs:
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
       - name: Build the Docker image
-        run: 
+        run: |
           cd client
           docker build --tag ${{secrets.DOCKER_USERNAME}}/vending-machine:$(date +%s) .
 
