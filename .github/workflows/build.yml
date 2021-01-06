@@ -1,4 +1,4 @@
-name: React CI
+name: vending-machine CI
 on:
   push:
     branches:
