@@ -2,9 +2,10 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 const CanBlock = styled.div`
-  width: 5rem;
-  height: 8rem;
+  width: 3.5rem;
+  height: 6.5rem;
   position: relative;
+  border-radius: 0.4rem;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
 
@@ -15,7 +16,7 @@ const CanBlock = styled.div`
       background-image: linear-gradient(
           180deg,
           ${props.outer_color} 0.3em,
-          #7a2820 0.3em,
+          ${props.outer_color} 0.3em,
           transparent 0.4em,
           transparent
         ),
@@ -37,7 +38,7 @@ const CanBlock = styled.div`
     height: 0.3em;
     position: absolute;
     top: 0;
-    background-color: ${(props) => props.theme.vending_machine_inner};
+    background-color: ${(props) => props.theme.shelf_background};
   }
   &::before {
     left: 0;
@@ -50,13 +51,13 @@ const CanBlock = styled.div`
 const CanText = styled.span`
   position: absolute;
   color: rgba(255, 255, 255, 0.8);
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   transform-origin: 0 0; // 회전 중심
   transform: translateY(-50%) translateX(-25%) translateZ(10px) rotateX(10deg)
     rotateZ(25deg) rotateY(-10deg);
   font-family: 'Lobster', cursive;
   top: 40%;
-  left: 50%;
+  left: 45%;
 `;
 
 function index({ outer_color, inner_color, can_name, ...rest }: any) {
