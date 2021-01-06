@@ -1,5 +1,8 @@
 export const palette = {
-  main: '',
+  vending_machine_inner: '#efefef',
+  background: '#778ca3',
+  coke_outer: '#7a2820',
+  coke_inner: '#cb4335',
 };
 
 const theme = {
