@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Can from '../Can';
 import LogoImg from '../../styles/img/logo.png';
-import { palette } from '../../styles/theme';
+import * as canData from '../../constants/canData';
+import Shelf from './Shelf';
 
 const MachineWrapper = styled.div`
   width: 42rem;
@@ -34,91 +34,24 @@ const ShelfWrapper = styled.div`
   padding: 2rem 0rem;
 `;
 
-const ShelfBox = styled.div`
-  padding-top: 1.5rem;
-  width: 100%;
-  background-color: ${(props) => props.theme.shelf_background};
-
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
-`;
-
 const ShelfBorder = styled.div`
   width: 100%;
   height: 2rem;
   background-color: #f7f3f3;
 `;
 
-const FatCan = styled(Can)`
-  width: 4.5rem;
-`;
-
-interface CanType {
-  can_name: string;
-  outer_color: string;
-  inner_color: string;
-}
-
-const coke = {
-  can_name: 'coke',
-  outer_color: palette.coke_outer,
-  inner_color: palette.coke_inner,
-};
-const sprite = {
-  can_name: 'sprite',
-  outer_color: palette.sprite_outer,
-  inner_color: palette.sprite_inner,
-};
-const pepper = {
-  can_name: 'Dr. Pepper',
-  outer_color: palette.pepper_outer,
-  inner_color: palette.pepper_inner,
-};
-
 function index() {
-  // loops Objects of can datas and renders the components.
-  const loopCans = (cans: CanType[], isFat = false): JSX.Element[] => {
-    let RenderedCans: JSX.Element[];
-    if (isFat) {
-      RenderedCans = cans.map((canObj: CanType, index: number) => {
-        return (
-          <>
-            <FatCan
-              can_name={canObj.can_name}
-              outer_color={canObj.outer_color}
-              inner_color={canObj.inner_color}
-            />
-          </>
-        );
-      });
-    } else {
-      RenderedCans = cans.map((canObj: CanType, index: number) => {
-        return (
-          <>
-            <Can
-              can_name={canObj.can_name}
-              outer_color={canObj.outer_color}
-              inner_color={canObj.inner_color}
-            />
-          </>
-        );
-      });
-    }
-    return RenderedCans;
-  };
-
   return (
     <MachineWrapper>
       <ShelfWrapper>
         <LogoArea>
           <img src={LogoImg} />
         </LogoArea>
-        <ShelfBox>{loopCans([coke, coke, coke])}</ShelfBox>
+        <Shelf CanArr={[canData.coke, canData.coke, canData.coke]} />
         <ShelfBorder></ShelfBorder>
-        <ShelfBox>{loopCans([sprite, sprite, sprite])}</ShelfBox>
+        <Shelf CanArr={[canData.sprite, canData.sprite, canData.sprite]} />
         <ShelfBorder></ShelfBorder>
-        <ShelfBox>{loopCans([pepper, pepper, pepper], true)}</ShelfBox>
+        <Shelf CanArr={[canData.pepper, canData.pepper, canData.pepper]} />
         <ShelfBorder></ShelfBorder>
       </ShelfWrapper>
     </MachineWrapper>

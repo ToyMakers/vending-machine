@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { CanType } from '../../constants/canData';
 
 const CanBlock = styled.div`
   width: 3.5rem;
@@ -60,9 +61,9 @@ const CanText = styled.span`
   left: 45%;
 `;
 
-function index({ outer_color, inner_color, can_name, ...rest }: any) {
+function index({ can_name, price, ...rest }: CanType) {
   return (
-    <CanBlock outer_color={outer_color} inner_color={inner_color} {...rest}>
+    <CanBlock {...rest}>
       <CanText>{can_name}</CanText>
     </CanBlock>
   );
