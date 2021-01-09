@@ -2,7 +2,12 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { CanType } from '../../constants/canData';
 
-const CanBlock = styled.div`
+interface CanBlockProps {
+  outer_color: any;
+  inner_color: any;
+}
+
+const CanBlock = styled.div<CanBlockProps>`
   width: 3.5rem;
   height: 6.5rem;
   position: relative;
@@ -10,7 +15,6 @@ const CanBlock = styled.div`
   border-radius: 0.4rem;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
-
   /* 아래 -> 위, 첫 번째 색으로 입구 부분 표현 */
   /* 왼쪽 -> 오른쪽, 20%까지 첫 번째 색, 나머지는 서서히 바뀜 */
   ${(props: any) =>
@@ -84,10 +88,10 @@ const PriceBox = styled.div`
   }
 `;
 
-function index({ can_name, price, ...rest }: CanType) {
+function Can({ can_name, price, outer_color, inner_color }: CanType) {
   return (
     <>
-      <CanBlock {...rest}>
+      <CanBlock outer_color={outer_color} inner_color={inner_color}>
         <CanText>{can_name}</CanText>
         <PriceBox>
           <p>
@@ -100,4 +104,4 @@ function index({ can_name, price, ...rest }: CanType) {
   );
 }
 
-export default index;
+export default Can;

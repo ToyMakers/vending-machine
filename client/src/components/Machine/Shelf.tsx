@@ -11,7 +11,7 @@ const ShelfBox = styled.div`
   padding-top: 1.5rem;
   width: 100%;
   background-color: ${(props) => props.theme.shelf_background};
-  box-shadow: inset 5px 5px 10px #ddd8d8;
+  box-shadow: inset 5px 5px 10px #aaa7a7;
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
