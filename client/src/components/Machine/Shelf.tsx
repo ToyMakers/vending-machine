@@ -11,7 +11,7 @@ const ShelfBox = styled.div`
   padding-top: 1.5rem;
   width: 100%;
   background-color: ${(props) => props.theme.shelf_background};
-
+  box-shadow: inset 5px 5px 10px #ddd8d8;
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
@@ -32,7 +32,7 @@ function Shelf({ CanArr }: ShelfProps) {
           <>
             <FatCan
               can_name={canObj.can_name}
-              price={1}
+              price={canObj.price}
               outer_color={canObj.outer_color}
               inner_color={canObj.inner_color}
             />
@@ -45,7 +45,7 @@ function Shelf({ CanArr }: ShelfProps) {
           <>
             <Can
               can_name={canObj.can_name}
-              price={1}
+              price={canObj.price}
               outer_color={canObj.outer_color}
               inner_color={canObj.inner_color}
             />

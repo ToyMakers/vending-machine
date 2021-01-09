@@ -6,6 +6,7 @@ const CanBlock = styled.div`
   width: 3.5rem;
   height: 6.5rem;
   position: relative;
+  margin-bottom: 2px;
   border-radius: 0.4rem;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
@@ -61,11 +62,41 @@ const CanText = styled.span`
   left: 45%;
 `;
 
+const PriceBox = styled.div`
+  position: absolute;
+  background-color: #0e0d0d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  color: red;
+  height: 1.4rem;
+  width: 100%;
+  bottom: -2rem;
+  p {
+    font-weight: 700;
+    font-size: 1.1rem;
+    flex: 1;
+    text-align: center;
+    span {
+      font-size: 0.8rem;
+    }
+  }
+`;
+
 function index({ can_name, price, ...rest }: CanType) {
   return (
-    <CanBlock {...rest}>
-      <CanText>{can_name}</CanText>
-    </CanBlock>
+    <>
+      <CanBlock {...rest}>
+        <CanText>{can_name}</CanText>
+        <PriceBox>
+          <p>
+            {price}
+            <span>₩</span>
+          </p>
+        </PriceBox>
+      </CanBlock>
+    </>
   );
 }
 

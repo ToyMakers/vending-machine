@@ -20,7 +20,7 @@ export const sprite = {
   price: 200,
 };
 export const pepper = {
-  can_name: 'Dr. Pepper',
+  can_name: 'Dr. pepper',
   outer_color: palette.pepper_outer,
   inner_color: palette.pepper_inner,
   price: 300,

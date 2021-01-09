@@ -17,7 +17,6 @@ const MachineWrapper = styled.div`
 const LogoArea = styled.div`
   padding: 0.1rem;
   position: absolute;
-  background-color: white;
   width: 3.2rem;
   height: 3.2rem;
   img {
@@ -37,7 +36,8 @@ const ShelfWrapper = styled.div`
 const ShelfBorder = styled.div`
   width: 100%;
   height: 2rem;
-  background-color: #f7f3f3;
+  background-color: #f3efef;
+  box-shadow: inset 2px 2px 4px #ddd8d8;
 `;
 
 function index() {
