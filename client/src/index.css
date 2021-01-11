@@ -170,6 +170,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-progress {
-  appearance: none;
+a {
+  color: #333333;
+  outline: none;
 }
