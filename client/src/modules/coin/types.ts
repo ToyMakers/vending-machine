@@ -8,5 +8,6 @@ export interface CoinState {
 // prepare types for all coin actions
 export type CoinAction =
   | ReturnType<typeof actions.initializeCoin>
-  | ReturnType<typeof actions.insertCoin>
-  | ReturnType<typeof actions.popCoin>;
+  | ReturnType<typeof actions.pushCoin>
+  | ReturnType<typeof actions.popCoin>
+  | ReturnType<typeof actions.payCoin>;

@@ -11,7 +11,11 @@ function coin(
   action: types.CoinAction
 ): types.CoinState {
   switch (action.type) {
-    case actions.INSERT_COIN:
+    case actions.PUSH_COIN:
+      if (action.payload > state.coinInWallet) {
+        alert("You don't have money");
+        return state;
+      }
       return {
         ...state,
         coinInWallet: (state.coinInWallet -= action.payload),
@@ -22,6 +26,11 @@ function coin(
         ...state,
         coinInWallet: (state.coinInWallet += state.coinInMachine),
         coinInMachine: 0,
+      };
+    case actions.PAY_COIN:
+      return {
+        ...state,
+        coinInMachine: (state.coinInMachine -= action.payload),
       };
     case actions.INITIALIZE_COIN:
       return initialState;
