@@ -1,7 +1,9 @@
 import React from 'react';
 import { useDrop } from 'react-dnd';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { ItemTypes } from '../../constants/itemType';
+import { insertCoin } from '../../modules/coin';
 
 const SlotWrapper = styled.div`
   width: 5rem;
@@ -38,6 +40,8 @@ const SlotWrapper = styled.div`
 `;
 
 function Slot() {
+  const dispatch = useDispatch();
+
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.COIN,
     drop: () => {
