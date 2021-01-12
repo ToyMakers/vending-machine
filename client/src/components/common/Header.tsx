@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const HeaderArea = styled.header`
-  height: 10vh;
+  height: 5vh;
 `;
 
 function Header() {
