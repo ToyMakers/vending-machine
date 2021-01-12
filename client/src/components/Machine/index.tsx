@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import LogoImg from '../../styles/img/logo.png';
-import * as canData from '../../constants/canData';
+import { drinkData } from '../../constants/drinkData';
 import Shelf from './Shelf';
 import Counter from './Counter';
 import Slot from './Slot';
@@ -85,11 +85,15 @@ function index() {
         <LogoArea>
           <img src={LogoImg} />
         </LogoArea>
-        <Shelf CanArr={[canData.coke, canData.coke, canData.coke]} />
+        <Shelf drinkArr={[drinkData.coke, drinkData.coke, drinkData.coke]} />
         <ShelfBorder />
-        <Shelf CanArr={[canData.sprite, canData.sprite, canData.sprite]} />
+        <Shelf
+          drinkArr={[drinkData.sprite, drinkData.sprite, drinkData.sprite]}
+        />
         <ShelfBorder />
-        <Shelf CanArr={[canData.pepper, canData.pepper, canData.pepper]} />
+        <Shelf
+          drinkArr={[drinkData.pepper, drinkData.pepper, drinkData.pepper]}
+        />
         <ShelfBorder />
       </TopArea>
       <MiddleArea>

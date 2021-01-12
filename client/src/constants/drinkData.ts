@@ -18,12 +18,14 @@ export const drinkData: SetDrinkType = {
     outerColor: palette.coke_outer,
     innerColor: palette.coke_inner,
     price: 100,
+    isFat: false,
   },
   sprite: {
     drinkName: 'sprite',
     outerColor: palette.sprite_outer,
     innerColor: palette.sprite_inner,
     price: 200,
+    isFat: false,
   },
   pepper: {
     drinkName: 'Dr. pepper',

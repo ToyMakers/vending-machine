@@ -1,11 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import Can from '../Can';
-import { CanType } from '../../constants/canData';
-
-const FatCan = styled(Can)`
-  width: 4.5rem;
-`;
+import { DrinkType } from '../../constants/drinkData';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../modules';
 
 const ShelfBox = styled.div`
   padding-top: 1.5rem;
@@ -18,45 +16,35 @@ const ShelfBox = styled.div`
 `;
 
 interface ShelfProps {
-  CanArr: CanType[];
+  drinkArr: DrinkType[];
 }
 
 // note
-function Shelf({ CanArr }: ShelfProps) {
+function Shelf({ drinkArr }: ShelfProps) {
+  const moneyInMachine = useSelector(
+    (state: RootState) => state.coin.coinInMachine
+  );
   // loops Objects of can datas and renders the components.
-  const loopCans = (CanArr: CanType[], isFat = false): JSX.Element[] => {
-    let RenderedCans: JSX.Element[];
-    if (isFat) {
-      RenderedCans = CanArr.map((canObj: CanType, index: number) => {
-        return (
-          <>
-            <FatCan
-              can_name={canObj.can_name}
-              price={canObj.price}
-              outer_color={canObj.outer_color}
-              inner_color={canObj.inner_color}
-            />
-          </>
-        );
-      });
-    } else {
-      RenderedCans = CanArr.map((canObj: CanType, index: number) => {
-        return (
-          <>
-            <Can
-              can_name={canObj.can_name}
-              price={canObj.price}
-              outer_color={canObj.outer_color}
-              inner_color={canObj.inner_color}
-            />
-          </>
-        );
-      });
-    }
+  const loopCans = (drinkArr: DrinkType[]): JSX.Element[] => {
+    const RenderedCans = drinkArr.map((canObj: DrinkType, index: number) => {
+      const toggleLight = moneyInMachine >= canObj.price;
+      console.log(canObj.isFat);
+      return (
+        <>
+          <Can
+            drinkName={canObj.drinkName}
+            outerColor={canObj.outerColor}
+            innerColor={canObj.innerColor}
+            price={canObj.price}
+            isFat={canObj.isFat}
+            toggleLight={toggleLight}
+          />
+        </>
+      );
+    });
     return RenderedCans;
   };
-
-  return <ShelfBox>{loopCans(CanArr)}</ShelfBox>;
+  return <ShelfBox>{loopCans(drinkArr)}</ShelfBox>;
 }
 
 export default Shelf;

@@ -1,5 +1,7 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { RootState } from '../../modules';
 
 const CounterWrapper = styled.div`
   background-color: green;
@@ -15,7 +17,10 @@ const CounterWrapper = styled.div`
 `;
 
 function Counter() {
-  return <CounterWrapper>0원</CounterWrapper>;
+  const moneyInMachine = useSelector(
+    (state: RootState) => state.coin.coinInMachine
+  );
+  return <CounterWrapper>{moneyInMachine} 원</CounterWrapper>;
 }
 
 export default Counter;

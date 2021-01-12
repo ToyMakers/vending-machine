@@ -3,7 +3,7 @@ import { useDrag } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { ItemTypes } from '../../constants/itemType';
-import { insertCoin } from '../../modules/coin';
+import { pushCoin } from '../../modules/coin';
 
 const CoinWrapper = styled.button`
   display: flex;
@@ -42,7 +42,7 @@ function Coin({ moneyValue }: CoinProps) {
       if (!monitor.didDrop()) {
         return;
       }
-      dispatch(insertCoin(moneyValue));
+      dispatch(pushCoin(moneyValue));
     },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
