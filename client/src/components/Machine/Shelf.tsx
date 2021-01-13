@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import Can from '../Can';
-import { DrinkType } from '../../constants/drinkData';
-import { useSelector } from 'react-redux';
+import { drinkData, DrinkType } from '../../constants/drinkData';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../modules';
+import { buyDrink } from '../../modules/drink';
+import { payCoin } from '../../modules/coin';
 
 const ShelfBox = styled.div`
   padding-top: 1.5rem;
@@ -16,19 +18,43 @@ const ShelfBox = styled.div`
 `;
 
 interface ShelfProps {
-  drinkArr: DrinkType[];
+  drinkKeyArr: string[];
 }
 
 // note
-function Shelf({ drinkArr }: ShelfProps) {
-  const moneyInMachine = useSelector(
+function Shelf({ drinkKeyArr }: ShelfProps) {
+  const coinInMachine = useSelector(
     (state: RootState) => state.coin.coinInMachine
   );
+  const drinkStock = useSelector((state: RootState) => state.drink.drinkStock);
+  const dispatch = useDispatch();
+
   // loops Objects of can datas and renders the components.
-  const loopCans = (drinkArr: DrinkType[]): JSX.Element[] => {
-    const RenderedCans = drinkArr.map((canObj: DrinkType, index: number) => {
-      const toggleLight = moneyInMachine >= canObj.price;
-      console.log(canObj.isFat);
+  const loopCans = (drinkKeyArr: string[]): JSX.Element[] => {
+    const RenderedCans = drinkKeyArr.map((drinkKey: string, index: number) => {
+      const canObj = drinkData[drinkKey];
+      const toggleLight = coinInMachine >= canObj.price;
+      const isSoldOut = drinkStock[drinkKey] < 1;
+
+      const handleClick = (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+      ) => {
+        if (!toggleLight) {
+          // check coin
+          return;
+        }
+
+        if (isSoldOut) {
+          // check stock
+          alert(`${canObj.drinkName} is sold out`);
+          return;
+        }
+
+        dispatch(buyDrink(drinkKey));
+        // update coin in machine
+        dispatch(payCoin(canObj.price));
+      };
+
       return (
         <>
           <Can
@@ -38,13 +64,15 @@ function Shelf({ drinkArr }: ShelfProps) {
             price={canObj.price}
             isFat={canObj.isFat}
             toggleLight={toggleLight}
+            isSoldOut={isSoldOut}
+            onClick={handleClick}
           />
         </>
       );
     });
     return RenderedCans;
   };
-  return <ShelfBox>{loopCans(drinkArr)}</ShelfBox>;
+  return <ShelfBox>{loopCans(drinkKeyArr)}</ShelfBox>;
 }
 
 export default Shelf;

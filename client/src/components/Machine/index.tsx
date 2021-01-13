@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import LogoImg from '../../styles/img/logo.png';
-import { drinkData } from '../../constants/drinkData';
 import Shelf from './Shelf';
 import Counter from './Counter';
 import Slot from './Slot';
@@ -85,15 +84,11 @@ function index() {
         <LogoArea>
           <img src={LogoImg} />
         </LogoArea>
-        <Shelf drinkArr={[drinkData.coke, drinkData.coke, drinkData.coke]} />
+        <Shelf drinkKeyArr={['coke', 'coke', 'coke']} />
         <ShelfBorder />
-        <Shelf
-          drinkArr={[drinkData.sprite, drinkData.sprite, drinkData.sprite]}
-        />
+        <Shelf drinkKeyArr={['sprite', 'sprite', 'sprite']} />
         <ShelfBorder />
-        <Shelf
-          drinkArr={[drinkData.pepper, drinkData.pepper, drinkData.pepper]}
-        />
+        <Shelf drinkKeyArr={['pepper', 'pepper', 'pepper']} />
         <ShelfBorder />
       </TopArea>
       <MiddleArea>

@@ -1,9 +1,6 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { DrinkType } from '../../constants/drinkData';
-import { RootState } from '../../modules';
-import { payCoin } from '../../modules/coin';
 
 interface CanBlockProps {
   outerColor: any;
@@ -79,6 +76,7 @@ const CanText = styled.span`
 
 interface PriceButtonProps {
   toggleLight: any;
+  isSoldOut: any;
 }
 
 const PriceButton = styled.button<PriceButtonProps>`
@@ -91,27 +89,28 @@ const PriceButton = styled.button<PriceButtonProps>`
   border-radius: 5px;
   color: #626262;
   ${(props) =>
-    props.toggleLight &&
+    (props.toggleLight || props.isSoldOut) &&
     css`
-      color: red;
+      color: #c31b1b;
     `}
-
   height: 1.6rem;
   width: 150%;
   bottom: -2rem;
   p {
-    font-weight: 700;
-    font-size: 1.1rem;
+    font-weight: 900;
+    font-size: 1rem;
     flex: 1;
     text-align: center;
     span {
-      font-size: 0.8rem;
+      font-size: 0.5rem;
     }
   }
 `;
 
 interface CanProps extends DrinkType {
   toggleLight: boolean;
+  isSoldOut: boolean;
+  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 function Can({
@@ -121,27 +120,27 @@ function Can({
   price,
   isFat,
   toggleLight,
+  isSoldOut,
+  onClick,
 }: CanProps) {
-  const dispatch = useDispatch();
-  const moneyInMachine = useSelector(
-    (state: RootState) => state.coin.coinInMachine
-  );
-
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    if (!toggleLight) {
-      return;
-    }
-    dispatch(payCoin(price));
-  };
-
   return (
     <>
       <CanBlock outerColor={outerColor} innerColor={innerColor} isFat={isFat}>
         <CanText>{drinkName}</CanText>
-        <PriceButton toggleLight={toggleLight} onClick={handleClick}>
+        <PriceButton
+          toggleLight={toggleLight}
+          isSoldOut={isSoldOut}
+          onClick={onClick}
+        >
           <p>
-            <span>₩ </span>
-            {price}
+            {isSoldOut ? (
+              'Sold Out'
+            ) : (
+              <>
+                <span>₩ </span>
+                {price}
+              </>
+            )}
           </p>
         </PriceButton>
       </CanBlock>
