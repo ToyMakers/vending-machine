@@ -6,6 +6,7 @@ import Counter from './Counter';
 import Slot from './Slot';
 import Door from './Door';
 import Coolor from './Coolor';
+import Lever from './Lever';
 
 const MachineWrapper = styled.div`
   position: relative;
@@ -77,6 +78,13 @@ const PaymentWrapper = styled.div`
   padding: 0rem 0rem 0rem 2rem;
 `;
 
+const SlotLeverWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.3rem;
+  flex: 1;
+`;
+
 function index() {
   return (
     <MachineWrapper>
@@ -97,15 +105,10 @@ function index() {
         </AdvertisementWrapper>
         <PaymentWrapper>
           <Counter />
-          <div
-            style={{
-              marginTop: '1.3rem',
-              flex: 1,
-              justifyContent: 'space-between',
-            }}
-          >
+          <SlotLeverWrapper>
             <Slot />
-          </div>
+            <Lever />
+          </SlotLeverWrapper>
         </PaymentWrapper>
       </MiddleArea>
       <Door />

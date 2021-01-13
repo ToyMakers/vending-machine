@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Can from '../Can';
-import { drinkData, DrinkType } from '../../constants/drinkData';
+import { drinkData } from '../../constants/drinkData';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import { buyDrink } from '../../modules/drink';
