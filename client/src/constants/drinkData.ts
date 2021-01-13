@@ -17,21 +17,27 @@ export const drinkData: SetDrinkType = {
     drinkName: 'coke',
     outerColor: palette.coke_outer,
     innerColor: palette.coke_inner,
-    price: 100,
+    price: 1000,
     isFat: false,
   },
   sprite: {
     drinkName: 'sprite',
     outerColor: palette.sprite_outer,
     innerColor: palette.sprite_inner,
-    price: 200,
+    price: 900,
     isFat: false,
   },
   pepper: {
     drinkName: 'Dr. pepper',
     outerColor: palette.pepper_outer,
     innerColor: palette.pepper_inner,
-    price: 300,
+    price: 1500,
     isFat: true,
   },
+};
+
+export const drinkStock = {
+  coke: 10,
+  sprite: 10,
+  pepper: 1,
 };
