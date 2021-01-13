@@ -13,7 +13,7 @@ function coin(
   switch (action.type) {
     case actions.PUSH_COIN:
       if (action.payload > state.coinInWallet) {
-        alert("You don't have enough money");
+        alert("You don't have enough coin");
         return state;
       }
       return {
@@ -22,6 +22,10 @@ function coin(
         coinInMachine: (state.coinInMachine += action.payload),
       };
     case actions.POP_COIN:
+      if (state.coinInMachine <= 0) {
+        alert('There is no coin in the machine.');
+        return state;
+      }
       return {
         ...state,
         coinInWallet: (state.coinInWallet += state.coinInMachine),
