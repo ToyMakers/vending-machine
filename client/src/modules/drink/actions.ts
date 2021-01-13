@@ -6,12 +6,12 @@ export const initializeDrink = () => ({
   type: INITIALIZE_DRINK,
 });
 
-export const buyDrink = (drinkName: string) => ({
+export const buyDrink = (drinkKey: string) => ({
   type: BUY_DRINK,
-  payload: drinkName,
+  payload: drinkKey,
 });
 
-export const getDrink = (drinkName: string) => ({
+export const getDrink = (drinkKey: string) => ({
   type: GET_DRINK,
-  payload: drinkName,
+  payload: drinkKey,
 });

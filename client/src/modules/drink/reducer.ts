@@ -4,6 +4,7 @@ import * as types from './types';
 
 const initialState: types.DrinkState = {
   drinkStock: { ...drinkStock },
+  exitBox: [],
   inventory: Object.keys(drinkStock).reduce(
     // initialize the number of drink in invenntory to 0
     (acc: { [key: string]: number }, key) => {
@@ -26,14 +27,16 @@ function drink(
           ...state.drinkStock,
           [action.payload]: state.drinkStock[action.payload] - 1,
         },
+        exitBox: state.exitBox.concat(action.payload),
       };
     case actions.GET_DRINK:
       return {
         ...state,
         inventory: {
-          ...state.drinkStock,
-          [action.payload]: state.drinkStock[action.payload] + 1,
+          ...state.inventory,
+          [action.payload]: state.inventory[action.payload] + 1,
         },
+        exitBox: state.exitBox.slice(1, state.exitBox.length),
       };
     case actions.INITIALIZE_DRINK:
       return initialState;
