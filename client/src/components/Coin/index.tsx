@@ -1,10 +1,13 @@
 import React from 'react';
 import { useDrag } from 'react-dnd';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { ItemTypes } from '../../constants/itemType';
+import { pushCoin } from '../../modules/coin';
 
 const CoinWrapper = styled.button`
   display: flex;
+  cursor: move;
   justify-content: center;
   align-items: center;
   background-color: #f3f3f3;
@@ -27,6 +30,8 @@ interface CoinProps {
 }
 
 function Coin({ moneyValue }: CoinProps) {
+  const dispatch = useDispatch();
+
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.COIN },
     begin: (monitor) => {
@@ -34,6 +39,10 @@ function Coin({ moneyValue }: CoinProps) {
     },
     end: (item, monitor) => {
       console.log(`${moneyValue} dragging end`);
+      if (!monitor.didDrop()) {
+        return;
+      }
+      dispatch(pushCoin(moneyValue));
     },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),

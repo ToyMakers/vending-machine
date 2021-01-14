@@ -1,5 +1,8 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { RootState } from '../../modules';
+import { getDrink } from '../../modules/drink';
 
 const DoorWrapper = styled.div`
   display: flex;
@@ -20,7 +23,7 @@ const DoorBox = styled.div`
   perspective: 80px;
 `;
 
-const OutLet = styled.button`
+const ExitBox = styled.button`
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -39,10 +42,22 @@ const OutLet = styled.button`
 `;
 
 function Door() {
+  const exitBox = useSelector((state: RootState) => state.drink.exitBox);
+  const dispatch = useDispatch();
+  const handleExitBox = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    if (exitBox.length == 0) {
+      return;
+    }
+    exitBox.map((drinkKey: string) => {
+      dispatch(getDrink(drinkKey));
+    });
+  };
   return (
     <DoorWrapper>
       <DoorBox>
-        <OutLet>PUSH</OutLet>
+        <ExitBox onClick={handleExitBox}>PUSH</ExitBox>
       </DoorBox>
     </DoorWrapper>
   );

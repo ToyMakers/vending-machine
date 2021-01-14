@@ -1,5 +1,7 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { RootState } from '../../modules';
 import Coin from '../Coin';
 
 const WalletWrapper = styled.div`
@@ -39,11 +41,14 @@ const WalletCoins = styled.div`
 `;
 
 function Wallet() {
+  const coinInWallet = useSelector(
+    (state: RootState) => state.coin.coinInWallet
+  );
   return (
     <WalletWrapper>
       <WalletTag>My wallet</WalletTag>
       <BalanceBox>
-        <span>{}</span>
+        <span>{coinInWallet}</span>
       </BalanceBox>
       <WalletCoins>
         <Coin moneyValue={100} />

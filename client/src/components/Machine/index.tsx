@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import LogoImg from '../../styles/img/logo.png';
-import * as canData from '../../constants/canData';
 import Shelf from './Shelf';
 import Counter from './Counter';
 import Slot from './Slot';
 import Door from './Door';
 import Coolor from './Coolor';
+import Lever from './Lever';
 
 const MachineWrapper = styled.div`
   position: relative;
@@ -78,6 +78,13 @@ const PaymentWrapper = styled.div`
   padding: 0rem 0rem 0rem 2rem;
 `;
 
+const SlotLeverWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.3rem;
+  flex: 1;
+`;
+
 function index() {
   return (
     <MachineWrapper>
@@ -85,11 +92,11 @@ function index() {
         <LogoArea>
           <img src={LogoImg} />
         </LogoArea>
-        <Shelf CanArr={[canData.coke, canData.coke, canData.coke]} />
+        <Shelf drinkKeyArr={['coke', 'coke', 'coke']} />
         <ShelfBorder />
-        <Shelf CanArr={[canData.sprite, canData.sprite, canData.sprite]} />
+        <Shelf drinkKeyArr={['sprite', 'sprite', 'sprite']} />
         <ShelfBorder />
-        <Shelf CanArr={[canData.pepper, canData.pepper, canData.pepper]} />
+        <Shelf drinkKeyArr={['pepper', 'pepper', 'pepper']} />
         <ShelfBorder />
       </TopArea>
       <MiddleArea>
@@ -98,15 +105,10 @@ function index() {
         </AdvertisementWrapper>
         <PaymentWrapper>
           <Counter />
-          <div
-            style={{
-              marginTop: '1.3rem',
-              flex: 1,
-              justifyContent: 'space-between',
-            }}
-          >
+          <SlotLeverWrapper>
             <Slot />
-          </div>
+            <Lever />
+          </SlotLeverWrapper>
         </PaymentWrapper>
       </MiddleArea>
       <Door />

@@ -1,14 +1,22 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { CanType } from '../../constants/canData';
+import { DrinkType } from '../../constants/drinkData';
 
 interface CanBlockProps {
-  outer_color: any;
-  inner_color: any;
+  outerColor: any;
+  innerColor: any;
+  isFat: any;
 }
 
 const CanBlock = styled.div<CanBlockProps>`
+  display: flex;
+  justify-content: center;
   width: 3.5rem;
+  ${(props: any) =>
+    props.isFat &&
+    css`
+      width: 4.3rem;
+    `}
   height: 6.5rem;
   position: relative;
   margin-bottom: 2px;
@@ -21,17 +29,17 @@ const CanBlock = styled.div<CanBlockProps>`
     css`
       background-image: linear-gradient(
           180deg,
-          ${props.outer_color} 0.3em,
-          ${props.outer_color} 0.3em,
+          ${props.outerColor} 0.3em,
+          ${props.outerColor} 0.3em,
           transparent 0.4em,
           transparent
         ),
         linear-gradient(
           90deg,
-          ${props.outer_color} 20%,
-          ${props.inner_color},
+          ${props.outerColor} 20%,
+          ${props.innerColor},
           rgba(255, 255, 255, 0.5),
-          ${props.outer_color}
+          ${props.outerColor}
         );
     `}
 
@@ -66,39 +74,75 @@ const CanText = styled.span`
   left: 45%;
 `;
 
-const PriceBox = styled.div`
+interface PriceButtonProps {
+  toggleLight: any;
+  isSoldOut: any;
+}
+
+const PriceButton = styled.button<PriceButtonProps>`
   position: absolute;
+  cursor: pointer;
   background-color: #0e0d0d;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  color: red;
-  height: 1.4rem;
-  width: 100%;
+  color: #626262;
+  ${(props) =>
+    (props.toggleLight || props.isSoldOut) &&
+    css`
+      color: #c31b1b;
+    `}
+  height: 1.6rem;
+  width: 150%;
   bottom: -2rem;
   p {
-    font-weight: 700;
-    font-size: 1.1rem;
+    font-weight: 900;
+    font-size: 1rem;
     flex: 1;
     text-align: center;
     span {
-      font-size: 0.8rem;
+      font-size: 0.5rem;
     }
   }
 `;
 
-function Can({ can_name, price, outer_color, inner_color }: CanType) {
+interface CanProps extends DrinkType {
+  toggleLight: boolean;
+  isSoldOut: boolean;
+  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+}
+
+function Can({
+  drinkName,
+  outerColor,
+  innerColor,
+  price,
+  isFat,
+  toggleLight,
+  isSoldOut,
+  onClick,
+}: CanProps) {
   return (
     <>
-      <CanBlock outer_color={outer_color} inner_color={inner_color}>
-        <CanText>{can_name}</CanText>
-        <PriceBox>
+      <CanBlock outerColor={outerColor} innerColor={innerColor} isFat={isFat}>
+        <CanText>{drinkName}</CanText>
+        <PriceButton
+          toggleLight={toggleLight}
+          isSoldOut={isSoldOut}
+          onClick={onClick}
+        >
           <p>
-            {price}
-            <span>₩</span>
+            {isSoldOut ? (
+              'Sold Out'
+            ) : (
+              <>
+                <span>₩ </span>
+                {price}
+              </>
+            )}
           </p>
-        </PriceBox>
+        </PriceButton>
       </CanBlock>
     </>
   );

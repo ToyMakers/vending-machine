@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { respondTo } from '../../styles/mixin';
 
 const FooterArea = styled.footer`
-  height: 10vh;
+  height: 8vh;
   display: flex;
   justify-content: center;
   align-items: center;
