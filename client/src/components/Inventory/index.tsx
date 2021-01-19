@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../modules';
-import putComma from '../../util/putComma';
 import Coin from '../Coin';
 
 const BigCoin = styled(Coin)`
@@ -50,17 +49,15 @@ const CoinBlock = styled.div`
   background-color: #3a526b;
 `;
 
-function Wallet() {
-  const coinInWallet = useSelector(
-    (state: RootState) => state.coin.coinInWallet
+function Inventory() {
+  const inventoryData = useSelector(
+    (state: RootState) => state.drink.inventory
   );
-  const coinInWalletWithComma = putComma(coinInWallet);
+  console.log(inventoryData);
   return (
     <WalletWrapper>
-      <WalletTagBlock>My Wallet</WalletTagBlock>
-      <BalanceBlock>
-        <span>₩ {coinInWalletWithComma}</span>
-      </BalanceBlock>
+      <WalletTagBlock>My Inventory</WalletTagBlock>
+      <BalanceBlock></BalanceBlock>
       <CoinBlock>
         <Coin moneyValue={100} />
         <Coin moneyValue={500} />
@@ -71,4 +68,4 @@ function Wallet() {
   );
 }
 
-export default Wallet;
+export default Inventory;

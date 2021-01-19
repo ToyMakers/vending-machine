@@ -174,3 +174,8 @@ a {
   color: #333333;
   outline: none;
 }
+
+button {
+  padding: 0;
+  border: none;
+}
