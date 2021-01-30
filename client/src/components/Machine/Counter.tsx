@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../modules';
+import putComma from '../../util/putComma';
 
 const CounterWrapper = styled.div`
   background-color: green;
@@ -20,7 +21,8 @@ function Counter() {
   const moneyInMachine = useSelector(
     (state: RootState) => state.coin.coinInMachine
   );
-  return <CounterWrapper>{moneyInMachine} 원</CounterWrapper>;
+  const moneyInMachineWithComma = putComma(moneyInMachine);
+  return <CounterWrapper>{moneyInMachineWithComma} 원</CounterWrapper>;
 }
 
 export default Counter;

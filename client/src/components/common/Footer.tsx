@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { respondTo } from '../../styles/mixin';
 
 const FooterArea = styled.footer`
+  background-color: #02343f;
+  color: #f0edcc;
   height: 8vh;
   display: flex;
   justify-content: center;
@@ -13,6 +15,9 @@ const FooterArea = styled.footer`
     `}
   p {
     margin: 0 0.8rem;
+  }
+  a {
+    color: #f0edcc;
   }
 `;
 

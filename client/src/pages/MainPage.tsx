@@ -10,8 +10,7 @@ const MainPageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 87vh;
-  background-color: ${(props) => props.theme.background};
+  height: 90vh;
 `;
 
 const MachineArea = styled.div`
@@ -22,6 +21,7 @@ const MachineArea = styled.div`
 `;
 
 const UserArea = styled.div`
+  padding: 1.8rem 0rem;
   height: 100%;
   display: flex;
   flex-direction: column;

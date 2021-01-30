@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { DrinkType } from '../../constants/drinkData';
+import putComma from '../../util/putComma';
 
 interface CanBlockProps {
   outerColor: any;
@@ -123,6 +124,7 @@ function Can({
   isSoldOut,
   onClick,
 }: CanProps) {
+  const priceWithComma = putComma(price);
   return (
     <>
       <CanBlock outerColor={outerColor} innerColor={innerColor} isFat={isFat}>
@@ -138,7 +140,7 @@ function Can({
             ) : (
               <>
                 <span>₩ </span>
-                {price}
+                {priceWithComma}
               </>
             )}
           </p>

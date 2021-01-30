@@ -10,29 +10,32 @@ const BigCoin = styled(Coin)`
   font-size: 1.6rem;
 `;
 
-const WalletWrapper = styled.div`
+const InventoryWrapper = styled.div`
   width: 40rem;
+  flex: 1;
   color: #fff;
+  display: flex;
+  flex-direction: column;
 `;
 
-const WalletTagBlock = styled.h2`
+const InventoryTagBlock = styled.h2`
   display: inline-block;
   font-size: 2.2rem;
   font-weight: 700;
   text-align: center;
   padding: 1.5rem 2rem;
-  background-color: #3a526b;
+  background-color: #959fa0;
   border-radius: 1.5rem 1.5rem 0 0;
 `;
 
-const BalanceBlock = styled.div`
+const CanCounterBlock = styled.div`
   border-radius: 0 1.5rem 0 0;
   padding: 1rem 3rem;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   text-align: right;
-  background-color: #2d3e4f;
+  background-color: #7f8c8d;
   span {
     font-size: 2em;
     font-weight: 700;
@@ -40,13 +43,14 @@ const BalanceBlock = styled.div`
   }
 `;
 
-const CoinBlock = styled.div`
+const CanBlock = styled.div`
   padding: 3rem 2rem;
+  flex: 1;
   display: flex;
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  background-color: #3a526b;
+  background-color: #95a5a6;
 `;
 
 function Inventory() {
@@ -55,16 +59,20 @@ function Inventory() {
   );
   console.log(inventoryData);
   return (
-    <WalletWrapper>
-      <WalletTagBlock>My Inventory</WalletTagBlock>
-      <BalanceBlock></BalanceBlock>
-      <CoinBlock>
+    <InventoryWrapper>
+      <div>
+        <InventoryTagBlock>My Inventory</InventoryTagBlock>
+      </div>
+      <CanCounterBlock>
+        <span>x 3</span>
+      </CanCounterBlock>
+      <CanBlock>
         <Coin moneyValue={100} />
         <Coin moneyValue={500} />
         <BigCoin moneyValue={1000} />
         <BigCoin moneyValue={5000} />
-      </CoinBlock>
-    </WalletWrapper>
+      </CanBlock>
+    </InventoryWrapper>
   );
 }
 

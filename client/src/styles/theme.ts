@@ -1,5 +1,5 @@
 export const palette = {
-  background: '#778ca3',
+  background: '#F9EBDE',
   shelf_background: '#fbf8f8',
   coke_outer: '#7a2820',
   coke_inner: '#cb4335',

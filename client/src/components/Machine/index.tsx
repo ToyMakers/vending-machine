@@ -66,8 +66,15 @@ const MiddleArea = styled.div`
 `;
 
 const AdvertisementWrapper = styled.div`
-  background-color: lightgray;
-  flex: 0.6;
+  background-color: transparent;
+  flex: 0.55;
+  width: 0rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    max-height: 95%;
+  }
 `;
 
 const PaymentWrapper = styled.div`
@@ -92,16 +99,17 @@ function index() {
         <LogoArea>
           <img src={LogoImg} />
         </LogoArea>
-        <Shelf drinkKeyArr={['coke', 'coke', 'coke']} />
+        <Shelf drinkKeyArr={['coke', 'coke', 'coke', 'coke']} />
         <ShelfBorder />
-        <Shelf drinkKeyArr={['sprite', 'sprite', 'sprite']} />
+        <Shelf drinkKeyArr={['sprite', 'sprite', 'sprite', 'sprite']} />
         <ShelfBorder />
-        <Shelf drinkKeyArr={['pepper', 'pepper', 'pepper']} />
+        <Shelf drinkKeyArr={['pepper', 'pepper', 'pepper', 'pepper']} />
         <ShelfBorder />
       </TopArea>
       <MiddleArea>
         <AdvertisementWrapper>
-          <h5 style={{ fontSize: '2rem' }}>광고</h5>
+          {/* <h5 style={{ fontSize: '2rem' }}>광고</h5> */}
+          <img src={LogoImg} />
         </AdvertisementWrapper>
         <PaymentWrapper>
           <Counter />
