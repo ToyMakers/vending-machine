@@ -6,7 +6,7 @@ import Counter from './Counter';
 import Slot from './Slot';
 import Door from './Door';
 import Coolor from './Coolor';
-import Lever from './Lever';
+import ReturnButton from './ReturnButton';
 
 const MachineWrapper = styled.div`
   position: relative;
@@ -115,7 +115,7 @@ function index() {
           <Counter />
           <SlotLeverWrapper>
             <Slot />
-            <Lever />
+            <ReturnButton />
           </SlotLeverWrapper>
         </PaymentWrapper>
       </MiddleArea>

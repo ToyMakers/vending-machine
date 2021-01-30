@@ -18,8 +18,8 @@ function coin(
       }
       return {
         ...state,
-        coinInWallet: (state.coinInWallet -= action.payload),
-        coinInMachine: (state.coinInMachine += action.payload),
+        coinInWallet: state.coinInWallet - action.payload,
+        coinInMachine: state.coinInMachine + action.payload,
       };
     case actions.POP_COIN:
       if (state.coinInMachine <= 0) {
@@ -28,13 +28,13 @@ function coin(
       }
       return {
         ...state,
-        coinInWallet: (state.coinInWallet += state.coinInMachine),
+        coinInWallet: state.coinInWallet + state.coinInMachine,
         coinInMachine: 0,
       };
     case actions.PAY_COIN:
       return {
         ...state,
-        coinInMachine: (state.coinInMachine -= action.payload),
+        coinInMachine: state.coinInMachine - action.payload,
       };
     case actions.INITIALIZE_COIN:
       return initialState;
