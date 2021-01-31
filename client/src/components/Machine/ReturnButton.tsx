@@ -50,12 +50,14 @@ function ReturnButton() {
       setIsFilled(false);
     }
   }, [coinInMachine]);
-  const handleLever = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleReturnButton = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
     dispatch(popCoin());
   };
   return (
     <ReturnButtonWrapper
-      onClick={handleLever}
+      onClick={handleReturnButton}
       isFilled={isFilled}
     ></ReturnButtonWrapper>
   );

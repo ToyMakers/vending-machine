@@ -49,7 +49,7 @@ function Counter() {
   const coinInMachineWithComma = putComma(coinInMachine);
   return (
     <CounterWrapper isFilled={isFilled}>
-      {coinInMachineWithComma} 원
+      {coinInMachineWithComma} ₩
     </CounterWrapper>
   );
 }
