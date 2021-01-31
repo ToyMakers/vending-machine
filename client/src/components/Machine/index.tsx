@@ -1,19 +1,34 @@
-import React from 'react';
-import styled from 'styled-components';
-import LogoImg from '../../styles/img/logo.png';
+import React, { useEffect, useState } from 'react';
+import styled, { css } from 'styled-components';
+import ToyMakersLogo from '../../styles/img/logo.png';
+import ReactLogo from '../../styles/img/logo192.png';
 import Shelf from './Shelf';
 import Counter from './Counter';
 import Slot from './Slot';
 import Door from './Door';
 import Coolor from './Coolor';
 import ReturnButton from './ReturnButton';
+import ChangeBox from './ChangeBox';
+import { darken } from 'polished';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../modules';
 
 const MachineWrapper = styled.div`
   position: relative;
   width: 42rem;
   height: 65rem;
-  background-color: #1c9d4a;
-  box-shadow: inset 2px -2px 15px 5px #096b2b;
+  // color
+  ${(props) => {
+    const selected = props.theme.main;
+    return css`
+      background-color: ${selected};
+      box-shadow: inset 2px -2px 15px 5px ${darken(0.2, selected)};
+      &::before,
+      ::after {
+        background-color: ${darken(0.2, selected)};
+      }
+    `;
+  }}
   padding: 1.8rem;
   display: flex;
   flex-direction: column;
@@ -30,7 +45,6 @@ const MachineWrapper = styled.div`
     height: 5px;
     position: absolute;
     top: 100%;
-    background-color: #002f11;
   }
 `;
 
@@ -62,27 +76,43 @@ const ShelfBorder = styled.div`
 
 const MiddleArea = styled.div`
   display: flex;
+  justify-content: space-between;
   height: 10.5rem;
 `;
 
-const AdvertisementWrapper = styled.div`
+interface AdvertisementWrapperProps {
+  isFilled: any;
+}
+
+const AdvertisementWrapper = styled.div<AdvertisementWrapperProps>`
   background-color: transparent;
-  flex: 0.55;
+  flex: 0.5;
   width: 0rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  ${(props): any => {
+    return (
+      !props.isFilled &&
+      css`
+        img {
+          filter: grayscale(80%);
+        }
+      `
+    );
+  }}
   img {
-    max-height: 95%;
+    margin: 5px 0px 0px 20%;
+    max-height: 70%;
+    padding: 5px;
+    background-color: black;
+    border-radius: 15%;
   }
 `;
 
 const PaymentWrapper = styled.div`
-  flex: 0.4;
-  /* background-color: blue; */
+  flex: 0.5;
   display: flex;
   flex-direction: column;
-  padding: 0rem 0rem 0rem 2rem;
+  padding: 0rem 2rem 0rem 2rem;
 `;
 
 const SlotLeverWrapper = styled.div`
@@ -93,11 +123,23 @@ const SlotLeverWrapper = styled.div`
 `;
 
 function index() {
+  const coinInMachine = useSelector(
+    (state: RootState) => state.coin.coinInMachine
+  );
+  const [isFilled, setIsFilled] = useState(false);
+  useEffect(() => {
+    if (coinInMachine > 0) {
+      setIsFilled(true);
+    } else {
+      setIsFilled(false);
+    }
+  }, [coinInMachine]);
+
   return (
     <MachineWrapper>
       <TopArea>
         <LogoArea>
-          <img src={LogoImg} />
+          <img src={ToyMakersLogo} />
         </LogoArea>
         <Shelf drinkKeyArr={['coke', 'coke', 'coke', 'coke']} />
         <ShelfBorder />
@@ -107,15 +149,15 @@ function index() {
         <ShelfBorder />
       </TopArea>
       <MiddleArea>
-        <AdvertisementWrapper>
-          {/* <h5 style={{ fontSize: '2rem' }}>광고</h5> */}
-          <img src={LogoImg} />
+        <AdvertisementWrapper isFilled={isFilled}>
+          <img src={ReactLogo} />
         </AdvertisementWrapper>
         <PaymentWrapper>
           <Counter />
           <SlotLeverWrapper>
             <Slot />
             <ReturnButton />
+            <ChangeBox />
           </SlotLeverWrapper>
         </PaymentWrapper>
       </MiddleArea>

@@ -14,20 +14,26 @@ const ReturnButtonWrapper = styled.div<ReturnButtonWrapperProps>`
   height: 4.3rem;
   border-radius: 50%;
   border: 2.5px solid white;
-  background-color: #0c0c0c;
-  box-shadow: inset 0 -1px 0 3px ${darken(0.1, '#0c0c0c')},
-    inset 0 8px ${lighten(0.25, '#0c0c0c')},
-    -1px 1px 5px 2px rgba(24, 24, 24, 0.5);
   cursor: not-allowed;
-  ${(props: any) =>
-    props.isFilled &&
-    css`
-      cursor: pointer;
-      background-color: #f39c12;
-      box-shadow: inset 0 -1px 0 3px ${darken(0.1, '#f39c12')},
-        inset 0 8px ${lighten(0.18, '#f39c12')},
-        -1px 1px 5px 2px rgba(24, 24, 24, 0.5);
-    `}
+  ${(props): any => {
+    const point = props.theme.point;
+    return props.isFilled
+      ? css`
+          // turn on
+          cursor: pointer;
+          background-color: ${point};
+          box-shadow: inset 0 -1px 0 3.5px ${darken(0.1, point)},
+            inset 0 8px ${lighten(0.18, point)},
+            -1px 1px 5px 2px rgba(24, 24, 24, 0.5);
+        `
+      : css`
+          // turn off
+          background-color: #0c0c0c;
+          box-shadow: inset 0 -1px 0 3.5px ${darken(0.1, '#0c0c0c')},
+            inset 0 8px ${lighten(0.25, '#0c0c0c')},
+            -1px 1px 5px 2px rgba(24, 24, 24, 0.5);
+        `;
+  }}
 `;
 
 function ReturnButton() {

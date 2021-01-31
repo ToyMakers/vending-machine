@@ -1,5 +1,6 @@
+import { darken, lighten } from 'polished';
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const CoolorWrapper = styled.div`
   flex: 1;
@@ -10,25 +11,28 @@ const CoolorBox = styled.div`
   margin-top: auto;
   width: 100%;
   height: 30px;
-  border-top: 3px solid #096b2b;
-  border-left: 3px solid #096b2b;
-  border-right: 3px solid #0a5f28;
-  border-bottom: 3px solid #052e14;
-  background-color: #013513;
-  background-image: repeating-linear-gradient(
-      180deg,
-      transparent,
-      transparent 20%,
-      #2f583e 20%,
-      #2f583e 25%
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 20%,
-      #2f583e 20%,
-      #2f583e 22%
-    );
+  ${(props) => {
+    const selected = props.theme.main;
+    return css`
+      border: 3px solid ${selected};
+      border-bottom: 3px solid ${darken(0.4, selected)};
+      background-color: ${darken(0.2, selected)};
+      background-image: repeating-linear-gradient(
+          180deg,
+          transparent,
+          transparent 20%,
+          ${lighten(0.2, selected)} 20%,
+          ${lighten(0.2, selected)} 25%
+        ),
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 20%,
+          ${lighten(0.15, selected)} 20%,
+          ${lighten(0.15, selected)} 21%
+        );
+    `;
+  }}
 `;
 
 function Coolor() {
