@@ -1,6 +1,8 @@
+import { darken, lighten } from 'polished';
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { DrinkType } from '../../constants/drinkData';
+import putComma from '../../util/putComma';
 
 interface CanBlockProps {
   outerColor: any;
@@ -83,22 +85,30 @@ const PriceButton = styled.button<PriceButtonProps>`
   position: absolute;
   cursor: pointer;
   background-color: #0e0d0d;
+  box-shadow: inset 0 0 2px 1.5px rgba(255, 255, 255, 0.2),
+    -1px 1px 3px 1px rgba(24, 24, 24, 0.5);
+
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
   color: #626262;
-  ${(props) =>
-    (props.toggleLight || props.isSoldOut) &&
-    css`
-      color: #c31b1b;
-    `}
+  ${(props): any => {
+    const point = props.theme.point;
+    return (
+      (props.toggleLight || props.isSoldOut) &&
+      css`
+        color: ${darken(0.2, point)};
+        text-shadow: 0 0 1px ${lighten(0.2, point)};
+      `
+    );
+  }}
   height: 1.6rem;
   width: 150%;
   bottom: -2rem;
   p {
-    font-weight: 900;
-    font-size: 1rem;
+    font-weight: 700;
+    font-size: 1.2rem;
     flex: 1;
     text-align: center;
     span {
@@ -123,6 +133,7 @@ function Can({
   isSoldOut,
   onClick,
 }: CanProps) {
+  const priceWithComma = putComma(price);
   return (
     <>
       <CanBlock outerColor={outerColor} innerColor={innerColor} isFat={isFat}>
@@ -138,7 +149,7 @@ function Can({
             ) : (
               <>
                 <span>₩ </span>
-                {price}
+                {priceWithComma}
               </>
             )}
           </p>

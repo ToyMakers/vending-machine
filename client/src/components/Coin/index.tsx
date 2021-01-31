@@ -4,41 +4,63 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { ItemTypes } from '../../constants/itemType';
 import { pushCoin } from '../../modules/coin';
+import putComma from '../../util/putComma';
 
-const CoinWrapper = styled.button`
-  display: flex;
+interface CoinWrapperProps {
+  isBig: any;
+  ref?: any;
+}
+
+const CoinWrapper = styled.button<CoinWrapperProps>`
   cursor: move;
-  justify-content: center;
-  align-items: center;
-  background-color: #f3f3f3;
-  border-top: 5px solid #ffffff;
-  border-right: 5px solid #c8c8c8;
-  border-left: 5px solid #ffffff;
-  border-bottom: 5px solid #9b9b9b;
-  border-style: inset;
+  background: linear-gradient(143deg, #b6b6b6, #ffffff 50%, #929292);
   border-radius: 100%;
-  color: #adadad;
-  font-weight: 700;
-  width: 5rem;
-  height: 5rem;
-  padding: 1rem;
+  width: 5.2rem;
+  height: 5.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transform: translate(0, 0);
+`;
+
+const CoinInner = styled.div`
+  border: 2.5px solid #a09f9f;
+  border-radius: 100%;
+  width: 95%;
+  height: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const CoinText = styled.span<CoinWrapperProps>`
+  font-size: 1.4rem;
+  font-weight: 700;
+  width: 93%;
+  height: 93%;
+  color: #a09f9f;
+  border: 1.5px solid #929292;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 interface CoinProps {
   moneyValue: number;
+  isBig: boolean;
 }
 
-function Coin({ moneyValue }: CoinProps) {
+function Coin({ moneyValue, isBig }: CoinProps) {
   const dispatch = useDispatch();
-
+  const moneyValueComma = putComma(moneyValue);
   const [{ isDragging }, drag] = useDrag({
     item: { type: ItemTypes.COIN },
     begin: (monitor) => {
-      console.log(`${moneyValue} dragging begin`);
+      console.log(`${moneyValueComma} dragging begin`);
     },
     end: (item, monitor) => {
-      console.log(`${moneyValue} dragging end`);
+      console.log(`${moneyValueComma} dragging end`);
       if (!monitor.didDrop()) {
         return;
       }
@@ -50,10 +72,17 @@ function Coin({ moneyValue }: CoinProps) {
   });
 
   return (
-    <CoinWrapper ref={drag}>
-      <span>{moneyValue}</span>
+    <CoinWrapper ref={drag} isBig={isBig}>
+      <CoinInner>
+        <CoinText isBig={isBig}>{moneyValueComma}</CoinText>
+      </CoinInner>
     </CoinWrapper>
   );
 }
+
+Coin.defaultProps = {
+  isBig: false,
+  moneyValue: undefined,
+};
 
 export default Coin;

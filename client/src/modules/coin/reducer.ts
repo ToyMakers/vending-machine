@@ -3,6 +3,7 @@ import * as types from './types';
 
 const initialState: types.CoinState = {
   coinInWallet: 10000,
+  coinInBox: 0,
   coinInMachine: 0,
 };
 
@@ -18,9 +19,10 @@ function coin(
       }
       return {
         ...state,
-        coinInWallet: (state.coinInWallet -= action.payload),
-        coinInMachine: (state.coinInMachine += action.payload),
+        coinInWallet: state.coinInWallet - action.payload,
+        coinInMachine: state.coinInMachine + action.payload,
       };
+
     case actions.POP_COIN:
       if (state.coinInMachine <= 0) {
         alert('There is no coin in the machine.');
@@ -28,14 +30,27 @@ function coin(
       }
       return {
         ...state,
-        coinInWallet: (state.coinInWallet += state.coinInMachine),
         coinInMachine: 0,
+        coinInBox: state.coinInBox + state.coinInMachine,
       };
+
+    case actions.TAKE_COIN:
+      if (state.coinInBox <= 0) {
+        alert('There is no coin in the box.');
+        return state;
+      }
+      return {
+        ...state,
+        coinInBox: 0,
+        coinInWallet: state.coinInWallet + state.coinInBox,
+      };
+
     case actions.PAY_COIN:
       return {
         ...state,
-        coinInMachine: (state.coinInMachine -= action.payload),
+        coinInMachine: state.coinInMachine - action.payload,
       };
+
     case actions.INITIALIZE_COIN:
       return initialState;
     default:

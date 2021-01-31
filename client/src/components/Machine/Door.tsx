@@ -1,6 +1,7 @@
+import { darken } from 'polished';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { RootState } from '../../modules';
 import { getDrink } from '../../modules/drink';
 
@@ -15,12 +16,15 @@ const DoorBox = styled.div`
   overflow: hidden;
   width: 80%;
   height: 80px;
-  border-top: 5px solid #107533;
-  border-left: 5px solid #117032;
-  border-right: 5px solid #1a6936;
-  border-bottom: 20px solid #233829;
-  background-color: #02200d;
-  perspective: 80px;
+
+  ${(props) => {
+    const selected = props.theme.main;
+    return css`
+      border: 3px solid ${darken(0.3, selected)};
+      border-bottom: 8px solid ${darken(0.4, selected)};
+      background-color: ${darken(0.5, selected)};
+    `;
+  }}
 `;
 
 const ExitBox = styled.button`
@@ -57,7 +61,7 @@ function Door() {
   return (
     <DoorWrapper>
       <DoorBox>
-        <ExitBox onClick={handleExitBox}>PUSH</ExitBox>
+        <ExitBox onClick={handleExitBox}>DRINK</ExitBox>
       </DoorBox>
     </DoorWrapper>
   );

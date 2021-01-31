@@ -4,12 +4,10 @@ import styled from 'styled-components';
 import { ItemTypes } from '../../constants/itemType';
 
 const SlotWrapper = styled.div`
-  width: 5rem;
-  height: 5rem;
+  width: 4.5rem;
+  height: 4.5rem;
   border-radius: 50%;
-  border: 3px solid #ffffff;
-  border-left-color: #b6b9b6;
-  border-bottom-color: #c1cac1;
+  border: 2px solid #ffffff;
   box-shadow: inset 0 0 3px 2px #181818, -1px 1px 5px 2px rgba(24, 24, 24, 0.5);
   background-color: gray;
   background-image: linear-gradient(
