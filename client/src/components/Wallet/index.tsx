@@ -1,3 +1,4 @@
+import { darken } from 'polished';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -22,7 +23,7 @@ const WalletTagBlock = styled.h2`
   font-weight: 700;
   text-align: center;
   padding: 1.5rem 2rem;
-  background-color: #3a526b;
+  background-color: ${(props) => props.theme.walletBackground};
   border-radius: 1.5rem 1.5rem 0 0;
 `;
 
@@ -33,7 +34,7 @@ const BalanceBlock = styled.div`
   justify-content: flex-end;
   align-items: center;
   text-align: right;
-  background-color: #2d3e4f;
+  background-color: ${(props) => darken(0.1, props.theme.walletBackground)};
   span {
     font-size: 2em;
     font-weight: 700;
@@ -47,7 +48,7 @@ const CoinBlock = styled.div`
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  background-color: #3a526b;
+  background-color: ${(props) => props.theme.walletBackground};
 `;
 
 function Wallet() {
