@@ -19,7 +19,7 @@ export const popCoin = () => ({
   type: POP_COIN,
 });
 
-// machine -> box
+// box -> inventory
 export const takeCoin = () => ({
   type: TAKE_COIN,
 });

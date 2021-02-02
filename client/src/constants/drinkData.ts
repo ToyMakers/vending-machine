@@ -5,7 +5,7 @@ export type DrinkType = {
   outerColor: string;
   innerColor: string;
   price: number;
-  isFat?: boolean;
+  isFat: boolean;
 };
 
 export type SetDrinkType = {
@@ -15,22 +15,22 @@ export type SetDrinkType = {
 export const drinkData: SetDrinkType = {
   coke: {
     drinkName: 'coke',
-    outerColor: palette.coke_outer,
-    innerColor: palette.coke_inner,
+    outerColor: palette.cokeOuter,
+    innerColor: palette.cokeInner,
     price: 1000,
     isFat: false,
   },
   sprite: {
     drinkName: 'sprite',
-    outerColor: palette.sprite_outer,
-    innerColor: palette.sprite_inner,
+    outerColor: palette.spriteOuter,
+    innerColor: palette.spriteInner,
     price: 900,
     isFat: false,
   },
   pepper: {
     drinkName: 'Dr. pepper',
-    outerColor: palette.pepper_outer,
-    innerColor: palette.pepper_inner,
+    outerColor: palette.pepperOuter,
+    innerColor: palette.pepperInner,
     price: 1500,
     isFat: true,
   },

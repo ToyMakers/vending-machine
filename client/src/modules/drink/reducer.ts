@@ -7,8 +7,8 @@ const initialState: types.DrinkState = {
   exitBox: [],
   inventory: Object.keys(drinkStock).reduce(
     // initialize the number of drink in invenntory to 0
-    (acc: { [key: string]: number }, key) => {
-      acc[key] = 0;
+    (acc: { [drinkKey: string]: number }, drinkKey) => {
+      acc[drinkKey] = 0;
       return acc;
     },
     {}
