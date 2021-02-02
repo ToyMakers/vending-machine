@@ -1,13 +1,15 @@
+import { darken } from 'polished';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { drinkData } from '../../constants/drinkData';
 import { RootState } from '../../modules';
-import Coin from '../Coin';
+import Can from '../Can';
 
-const BigCoin = styled(Coin)`
-  width: 6.2rem;
-  height: 6.2rem;
-  font-size: 1.6rem;
+const CanArea = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
 `;
 
 const InventoryWrapper = styled.div`
@@ -24,7 +26,7 @@ const InventoryTagBlock = styled.h2`
   font-weight: 700;
   text-align: center;
   padding: 1.5rem 2rem;
-  background-color: #959fa0;
+  background-color: ${(props) => props.theme.inventoryBackground};
   border-radius: 1.5rem 1.5rem 0 0;
 `;
 
@@ -35,7 +37,7 @@ const CanCounterBlock = styled.div`
   justify-content: flex-end;
   align-items: center;
   text-align: right;
-  background-color: #7f8c8d;
+  background-color: ${(props) => darken(0.1, props.theme.inventoryBackground)};
   span {
     font-size: 2em;
     font-weight: 700;
@@ -43,21 +45,39 @@ const CanCounterBlock = styled.div`
   }
 `;
 
-const CanBlock = styled.div`
-  padding: 3rem 2rem;
+const ItemWrapper = styled.div`
+  padding: 3rem 4.5rem;
   flex: 1;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
   width: 100%;
-  background-color: #95a5a6;
+  background-color: ${(props) => props.theme.inventoryBackground};
 `;
 
 function Inventory() {
-  const inventoryData = useSelector(
+  const canInInventory = useSelector(
     (state: RootState) => state.drink.inventory
   );
-  console.log(inventoryData);
+
+  const loopCans = (canInInventory: {
+    [drinkey: string]: number;
+  }): JSX.Element[] => {
+    const RenderedCans: JSX.Element[] = [];
+    for (const drinkKey in canInInventory) {
+      const canObj = drinkData[drinkKey];
+      canInInventory[drinkKey] !== 0 &&
+        RenderedCans.push(
+          <CanArea>
+            <Can
+              drinkName={canObj.drinkName}
+              outerColor={canObj.outerColor}
+              innerColor={canObj.innerColor}
+              isInventory={true}
+            />
+          </CanArea>
+        );
+    }
+    return RenderedCans;
+  };
   return (
     <InventoryWrapper>
       <div>
@@ -66,12 +86,7 @@ function Inventory() {
       <CanCounterBlock>
         <span>x 3</span>
       </CanCounterBlock>
-      <CanBlock>
-        <Coin moneyValue={100} />
-        <Coin moneyValue={500} />
-        <BigCoin moneyValue={1000} />
-        <BigCoin moneyValue={5000} />
-      </CanBlock>
+      <ItemWrapper>{loopCans(canInInventory)}</ItemWrapper>
     </InventoryWrapper>
   );
 }

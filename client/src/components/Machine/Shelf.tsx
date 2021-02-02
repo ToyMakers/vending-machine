@@ -10,7 +10,7 @@ import { payCoin } from '../../modules/coin';
 const ShelfBox = styled.div`
   padding-top: 1.5rem;
   width: 100%;
-  background-color: ${(props) => props.theme.shelf_background};
+  background-color: ${(props) => props.theme.shelfBackground};
   box-shadow: inset 5px 5px 10px #aaa7a7;
   display: flex;
   justify-content: space-around;
@@ -61,8 +61,8 @@ function Shelf({ drinkKeyArr }: ShelfProps) {
             drinkName={canObj.drinkName}
             outerColor={canObj.outerColor}
             innerColor={canObj.innerColor}
-            price={canObj.price}
             isFat={canObj.isFat}
+            price={canObj.price}
             toggleLight={toggleLight}
             isSoldOut={isSoldOut}
             onClick={handleClick}
