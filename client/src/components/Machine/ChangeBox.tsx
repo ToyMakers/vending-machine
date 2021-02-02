@@ -5,7 +5,11 @@ import styled, { css } from 'styled-components';
 import { RootState } from '../../modules';
 import { takeCoin } from '../../modules/coin';
 
-const CoinBox = styled.button`
+const CoinBox = styled.div`
+  color: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -21,7 +25,6 @@ const CoinBox = styled.button`
     transparent,
     rgba(128, 128, 128, 0.5) 50%
   );
-  font-size: 1rem;
 `;
 
 interface ChangeBoxWrapperProps {
@@ -32,21 +35,23 @@ const ChangeBoxWrapper = styled.div<ChangeBoxWrapperProps>`
   overflow: hidden;
   width: 4.3rem;
   height: 4.3rem;
-  cursor: not-allowed;
   ${(props): any => {
     const main = props.theme.main;
     const point = props.theme.point;
     return props.isFilled
       ? css`
           // turn on
+          font-size: 1.1rem;
           cursor: pointer;
           border: 1px solid ${point};
           border-bottom: 4px solid ${point};
-          color: rgba(255, 255, 255, 0.7);
+          color: rgba(255, 255, 255, 0.8);
           background-color: ${lighten(0.01, point)};
         `
       : css`
           // turn off
+          font-size: 0.9rem;
+          cursor: not-allowed;
           border: 1px solid ${darken(0.3, main)};
           border-bottom: 4px solid ${darken(0.4, main)};
           background-color: ${darken(0.5, main)};
@@ -75,7 +80,7 @@ function ChangeBox() {
   return (
     <div>
       <ChangeBoxWrapper isFilled={isFilled} onClick={handleChangeBox}>
-        <CoinBox>COIN</CoinBox>
+        <CoinBox>{isFilled ? 'CLICK!' : 'COIN'}</CoinBox>
       </ChangeBoxWrapper>
     </div>
   );
