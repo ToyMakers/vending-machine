@@ -72,6 +72,7 @@ function Inventory() {
               outerColor={canObj.outerColor}
               innerColor={canObj.innerColor}
               isInventory={true}
+              canNumber={canInInventory[drinkKey]}
             />
           </CanArea>
         );

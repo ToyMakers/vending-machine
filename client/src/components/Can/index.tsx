@@ -154,6 +154,7 @@ interface CanProps extends DrinkType {
   toggleLight: boolean;
   isSoldOut: boolean;
   isInventory: boolean;
+  canNumber: number;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
@@ -166,6 +167,7 @@ function Can({
   toggleLight,
   isSoldOut,
   isInventory,
+  canNumber,
   onClick,
 }: CanProps) {
   const priceWithComma = putComma(price);
@@ -179,7 +181,7 @@ function Can({
       >
         <CanText>{drinkName}</CanText>
         {isInventory ? (
-          <InventoryCanTag>3</InventoryCanTag>
+          <InventoryCanTag>{canNumber}</InventoryCanTag>
         ) : (
           <CanTag toggleLight={toggleLight} onClick={onClick}>
             <p>
@@ -205,6 +207,7 @@ Can.defaultProps = {
   toggleLight: false,
   isSoldOut: false,
   isInventory: false,
+  canNumber: 0,
 };
 
 export default Can;
