@@ -9,7 +9,7 @@ import Door from './Door';
 import Coolor from './Coolor';
 import ReturnButton from './ReturnButton';
 import ChangeBox from './ChangeBox';
-import { darken } from 'polished';
+import { darken, lighten } from 'polished';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 
@@ -70,8 +70,14 @@ const TopArea = styled.div`
 const ShelfBorder = styled.div`
   width: 100%;
   height: 2rem;
-  background-color: #f3efef;
-  box-shadow: inset 2px 2px 4px #ddd8d8;
+  background-color: ${(props) => props.theme.shelfBackground};
+  ${(props) => {
+    const selected = props.theme.main;
+    return css`
+      box-shadow: inset 2px 2px 4px ${lighten(0.2, selected)};
+      }
+    `;
+  }}
 `;
 
 const MiddleArea = styled.div`
@@ -141,9 +147,11 @@ function index() {
         <LogoArea>
           <img src={ToyMakersLogo} />
         </LogoArea>
-        <Shelf drinkKeyArr={['coke', 'coke', 'coke', 'coke']} />
+        <Shelf
+          drinkKeyArr={['welchs', 'welchsStrawberry', 'letsbe', 'tejava']}
+        />
         <ShelfBorder />
-        <Shelf drinkKeyArr={['sprite', 'sprite', 'sprite', 'sprite']} />
+        <Shelf drinkKeyArr={['pokari', 'coke', 'sprite', 'fanta']} />
         <ShelfBorder />
         <Shelf drinkKeyArr={['pepper', 'pepper', 'pepper', 'pepper']} />
         <ShelfBorder />

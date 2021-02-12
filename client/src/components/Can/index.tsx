@@ -4,6 +4,12 @@ import styled, { css } from 'styled-components';
 import { DrinkType } from '../../constants/drinkData';
 import putComma from '../../util/putComma';
 
+const CanWrapper = styled.div`
+  flex-basis: 25%;
+  display: flex;
+  justify-content: center;
+`;
+
 interface CanBlockProps {
   outerColor: any;
   innerColor: any;
@@ -69,10 +75,12 @@ const CanBlock = styled.div<CanBlockProps>`
   // if the can is in inventory
   ${(props: any): any => {
     const isInventory = props.isInventory;
+    const isFat = props.isFat;
     const inventoryBackground = props.theme.inventoryBackground;
     return (
       isInventory &&
       css`
+        margin-bottom: 5rem;
         font-size: 1.6rem;
         width: 5.2rem;
         height: 8.3rem;
@@ -172,7 +180,7 @@ function Can({
 }: CanProps) {
   const priceWithComma = putComma(price);
   return (
-    <>
+    <CanWrapper>
       <CanBlock
         outerColor={outerColor}
         innerColor={innerColor}
@@ -197,7 +205,7 @@ function Can({
           </CanTag>
         )}
       </CanBlock>
-    </>
+    </CanWrapper>
   );
 }
 

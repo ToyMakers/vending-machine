@@ -1,20 +1,27 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Can from '../Can';
 import { drinkData } from '../../constants/drinkData';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../modules';
 import { buyDrink } from '../../modules/drink';
 import { payCoin } from '../../modules/coin';
+import { lighten } from 'polished';
 
 const ShelfBox = styled.div`
   padding-top: 1.5rem;
   width: 100%;
   background-color: ${(props) => props.theme.shelfBackground};
-  box-shadow: inset 5px 5px 10px #aaa7a7;
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
+  ${(props) => {
+    const selected = props.theme.main;
+    return css`
+      box-shadow: inset 1rem 1.3rem 2rem ${lighten(0.2, selected)};
+      }
+    `;
+  }}
 `;
 
 interface ShelfProps {

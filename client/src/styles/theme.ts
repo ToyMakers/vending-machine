@@ -1,6 +1,7 @@
 export const palette = {
   main: '#a04ef6',
   point: '#5fd7f2',
+  mainBackground: '#2c2c54',
   shelfBackground: '#f7f1e3',
   inventoryBackground: '#EEA47F',
   walletBackground: '#815854',
