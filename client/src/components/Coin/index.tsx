@@ -1,5 +1,6 @@
 import React from 'react';
-import { useDrag } from 'react-dnd';
+import { useDrag, DragPreviewImage } from 'react-dnd';
+import TakeMoney from '../../assets/img/take_money.png';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { ItemTypes } from '../../constants/itemType';
@@ -54,7 +55,7 @@ interface CoinProps {
 function Coin({ moneyValue, isBig }: CoinProps) {
   const dispatch = useDispatch();
   const moneyValueComma = putComma(moneyValue);
-  const [{ isDragging }, drag] = useDrag({
+  const [{ isDragging }, drag, preview] = useDrag({
     item: { type: ItemTypes.COIN },
     begin: (monitor) => {
       console.log(`${moneyValueComma} dragging begin`);
@@ -72,11 +73,14 @@ function Coin({ moneyValue, isBig }: CoinProps) {
   });
 
   return (
-    <CoinWrapper ref={drag} isBig={isBig}>
-      <CoinInner>
-        <CoinText isBig={isBig}>{moneyValueComma}</CoinText>
-      </CoinInner>
-    </CoinWrapper>
+    <>
+      <DragPreviewImage src={TakeMoney} connect={preview} />
+      <CoinWrapper ref={drag} isBig={isBig}>
+        <CoinInner>
+          <CoinText isBig={isBig}>{moneyValueComma}</CoinText>
+        </CoinInner>
+      </CoinWrapper>
+    </>
   );
 }
 

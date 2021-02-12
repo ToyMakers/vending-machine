@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import ToyMakersLogo from '../../styles/img/logo.png';
-import ReactLogo from '../../styles/img/logo192.png';
+import ToyMakersLogo from '../../assets/img/toy_logo.png';
+import ReactLogo from '../../assets/img/react_logo.png';
 import Shelf from './Shelf';
 import Counter from './Counter';
 import Slot from './Slot';
