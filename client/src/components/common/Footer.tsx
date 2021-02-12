@@ -33,8 +33,8 @@ const FooterArea = styled.footer`
 function Footer() {
   return (
     <FooterArea>
-      <p>Toy Makers</p>
-      <a href="https://github.com/ToyMakers">GitHub</a>
+      <p>made by</p>
+      <a href="https://github.com/seung-00">seung-00</a>
     </FooterArea>
   );
 }
