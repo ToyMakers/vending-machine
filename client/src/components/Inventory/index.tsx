@@ -6,12 +6,6 @@ import { drinkData } from '../../constants/drinkData';
 import { RootState } from '../../modules';
 import Can from '../Can';
 
-const CanArea = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: center;
-`;
-
 const InventoryWrapper = styled.div`
   width: 40rem;
   flex: 1;
@@ -45,18 +39,35 @@ const CanCounterBlock = styled.div`
   }
 `;
 
-const ItemWrapper = styled.div`
-  padding: 3rem 4.5rem;
-  flex: 1;
+const ItemArea = styled.div`
+  padding: 4rem 4.5rem 1rem 4.5rem;
   display: flex;
+  max-height: 30rem;
+  overflow: scroll;
+  flex: 1;
   width: 100%;
   background-color: ${(props) => props.theme.inventoryBackground};
+`;
+
+const ItemWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  align-content: flex-start;
 `;
 
 function Inventory() {
   const canInInventory = useSelector(
     (state: RootState) => state.drink.inventory
   );
+
+  const countCan = (canInInventory: { [key: string]: number }) => {
+    let totalCanNum = 0;
+    for (const canKey in canInInventory) {
+      totalCanNum += canInInventory[canKey];
+    }
+    return totalCanNum;
+  };
 
   const loopCans = (canInInventory: {
     [drinkey: string]: number;
@@ -66,7 +77,7 @@ function Inventory() {
       const canObj = drinkData[drinkKey];
       canInInventory[drinkKey] !== 0 &&
         RenderedCans.push(
-          <CanArea>
+          <>
             <Can
               drinkName={canObj.drinkName}
               outerColor={canObj.outerColor}
@@ -74,7 +85,7 @@ function Inventory() {
               isInventory={true}
               canNumber={canInInventory[drinkKey]}
             />
-          </CanArea>
+          </>
         );
     }
     return RenderedCans;
@@ -85,9 +96,11 @@ function Inventory() {
         <InventoryTagBlock>My Inventory</InventoryTagBlock>
       </div>
       <CanCounterBlock>
-        <span>x 3</span>
+        <span>{countCan(canInInventory)}</span>
       </CanCounterBlock>
-      <ItemWrapper>{loopCans(canInInventory)}</ItemWrapper>
+      <ItemArea>
+        <ItemWrapper>{loopCans(canInInventory)}</ItemWrapper>
+      </ItemArea>
     </InventoryWrapper>
   );
 }
