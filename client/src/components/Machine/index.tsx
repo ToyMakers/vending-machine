@@ -12,6 +12,8 @@ import ChangeBox from './ChangeBox';
 import { darken, lighten } from 'polished';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
+import { useDrop } from 'react-dnd';
+import { ItemTypes } from '../../constants/itemType';
 
 const MachineWrapper = styled.div`
   position: relative;
@@ -133,6 +135,7 @@ function index() {
     (state: RootState) => state.coin.coinInMachine
   );
   const [isFilled, setIsFilled] = useState(false);
+
   useEffect(() => {
     if (coinInMachine > 0) {
       setIsFilled(true);
@@ -141,8 +144,18 @@ function index() {
     }
   }, [coinInMachine]);
 
+  const [{ isOver }, drop] = useDrop({
+    accept: ItemTypes.KICK,
+    drop: () => {
+      console.log('You kicked the machine.');
+    },
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  });
+
   return (
-    <MachineWrapper>
+    <MachineWrapper ref={drop}>
       <TopArea>
         <LogoArea>
           <img src={ToyMakersLogo} />

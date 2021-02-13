@@ -5,8 +5,10 @@ import Header from '../components/common/Header';
 import Inventory from '../components/Inventory';
 import Machine from '../components/Machine';
 import Wallet from '../components/Wallet';
+import Kick from '../components/Kick';
 
 const MainPageWrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;

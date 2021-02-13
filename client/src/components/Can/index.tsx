@@ -121,7 +121,7 @@ const CanTag = styled.button<CanTagProps>`
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  color: #626262;
+  color: #949494;
   ${(props): any => {
     const point = props.theme.point;
     return (
