@@ -75,7 +75,6 @@ const CanBlock = styled.div<CanBlockProps>`
   // if the can is in inventory
   ${(props: any): any => {
     const isInventory = props.isInventory;
-    const isFat = props.isFat;
     const inventoryBackground = props.theme.inventoryBackground;
     return (
       isInventory &&
@@ -163,7 +162,7 @@ interface CanProps extends DrinkType {
   isSoldOut: boolean;
   isInventory: boolean;
   canNumber: number;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onClick?: () => void;
 }
 
 function Can({

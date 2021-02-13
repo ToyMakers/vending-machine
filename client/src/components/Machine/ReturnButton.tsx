@@ -50,9 +50,7 @@ function ReturnButton() {
       setIsFilled(false);
     }
   }, [coinInMachine]);
-  const handleReturnButton = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
+  const handleReturnButton = () => {
     dispatch(popCoin());
   };
   return (

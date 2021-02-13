@@ -73,7 +73,7 @@ function ChangeBox() {
     }
   }, [coinInBox]);
 
-  const handleChangeBox = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleChangeBox = () => {
     dispatch(takeCoin());
   };
 
