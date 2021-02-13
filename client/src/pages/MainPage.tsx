@@ -39,7 +39,7 @@ const MachineArea = styled.div`
 `;
 
 const UserArea = styled.div`
-  padding: 1.8rem 0rem;
+  padding: 5% 0rem;
   height: 100%;
   display: flex;
   flex-direction: column;

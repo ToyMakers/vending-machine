@@ -32,15 +32,15 @@ const CanCounterBlock = styled.div`
   text-align: right;
   background-color: ${(props) => darken(0.1, props.theme.inventoryBackground)};
   span {
-    font-size: 2em;
+    font-size: 2.5em;
     font-weight: 700;
-    padding: 0.5rem;
   }
 `;
 
 const ItemArea = styled.div`
-  padding: 4rem 4.5rem 1rem 4.5rem;
+  padding: 4rem 2.5rem 1rem 2.5rem;
   display: flex;
+  justify-content: center;
   max-height: 30rem;
   overflow: scroll;
   flex: 1;
@@ -51,8 +51,7 @@ const ItemArea = styled.div`
 const ItemWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin: 0 auto;
-  align-content: flex-start;
+  width: 80%;
 `;
 
 function Inventory() {

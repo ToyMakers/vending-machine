@@ -79,7 +79,7 @@ const CanBlock = styled.div<CanBlockProps>`
     return (
       isInventory &&
       css`
-        margin-bottom: 5rem;
+        margin: 0rem 2rem 5rem 2rem;
         font-size: 1.6rem;
         width: 5.2rem;
         height: 8.3rem;
