@@ -2,9 +2,8 @@ import { darken } from 'polished';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { drinkData } from '../../constants/drinkData';
+import { useCans } from '../../hooks/useCans';
 import { RootState } from '../../modules';
-import Can from '../Can';
 
 const InventoryWrapper = styled.div`
   width: 40rem;
@@ -57,6 +56,8 @@ const ItemWrapper = styled.div`
 `;
 
 function Inventory() {
+  const [renderCans] = useCans([], true);
+
   const canInInventory = useSelector(
     (state: RootState) => state.drink.inventory
   );
@@ -68,28 +69,6 @@ function Inventory() {
     }
     return totalCanNum;
   };
-
-  const loopCans = (canInInventory: {
-    [drinkey: string]: number;
-  }): JSX.Element[] => {
-    const RenderedCans: JSX.Element[] = [];
-    for (const drinkKey in canInInventory) {
-      const canObj = drinkData[drinkKey];
-      canInInventory[drinkKey] !== 0 &&
-        RenderedCans.push(
-          <>
-            <Can
-              drinkName={canObj.drinkName}
-              outerColor={canObj.outerColor}
-              innerColor={canObj.innerColor}
-              isInventory={true}
-              canNumber={canInInventory[drinkKey]}
-            />
-          </>
-        );
-    }
-    return RenderedCans;
-  };
   return (
     <InventoryWrapper>
       <div>
@@ -99,7 +78,7 @@ function Inventory() {
         <span>{countCan(canInInventory)}</span>
       </CanCounterBlock>
       <ItemArea>
-        <ItemWrapper>{loopCans(canInInventory)}</ItemWrapper>
+        <ItemWrapper>{renderCans()}</ItemWrapper>
       </ItemArea>
     </InventoryWrapper>
   );
