@@ -2,7 +2,7 @@ import * as actions from './actions';
 import * as types from './types';
 
 const initialState: types.CoinState = {
-  coinInWallet: 10000,
+  coinInWallet: 20000,
   coinInBox: 0,
   coinInMachine: 0,
 };

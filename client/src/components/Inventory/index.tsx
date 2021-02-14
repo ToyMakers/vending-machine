@@ -55,7 +55,7 @@ const ItemWrapper = styled.div`
 `;
 
 function Inventory() {
-  const [renderCans] = useCans([], true);
+  const [renderCans] = useCans([], false, true);
 
   const canInInventory = useSelector(
     (state: RootState) => state.drink.inventory

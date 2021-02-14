@@ -17,6 +17,7 @@ const ShoesBox = styled.div`
   width: 1rem;
   position: absolute;
   left: 8rem;
+  cursor: move;
   img {
     max-height: 90%;
     transform: translate(0, 0);
@@ -28,11 +29,15 @@ function Kick() {
   const dispatch = useDispatch();
 
   const kickMachine = () => {
+    let cnt = 0;
     for (const drinkKey in drinkStock) {
       const drinkNum = drinkStock[drinkKey];
 
       for (let i = 0; i < drinkNum; i++) {
-        dispatch(buyDrink(drinkKey));
+        cnt++;
+        setTimeout(() => {
+          dispatch({ delayedAction: buyDrink(drinkKey), isDelay: true });
+        }, 200 * cnt);
       }
     }
   };

@@ -1,12 +1,23 @@
 import { darken, lighten } from 'polished';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+import { useCans } from '../../hooks/useCans';
+import { useExitCans } from '../../hooks/useExitCans';
 import { RootState } from '../../modules';
 import { getDrink } from '../../modules/drink';
 
+const fall = (degVal: any) => keyframes`
+  from {
+    transform: translateY(-20px) rotate(10deg);
+  }
+  to {
+    transform: translateY(10px) rotate(${degVal}deg);
+  }
+`;
+
 interface DoorWrapperProps {
-  isFilled: any;
+  exitBoxLen: any;
 }
 
 const DoorArea = styled.div`
@@ -17,21 +28,22 @@ const DoorArea = styled.div`
 `;
 
 const DoorWrapper = styled.div<DoorWrapperProps>`
+  position: relative;
   overflow: hidden;
   width: 80%;
-  height: 80px;
+  height: 8rem;
 
   ${(props): any => {
     const main = props.theme.main;
     const point = props.theme.point;
-    return props.isFilled
+    return props.exitBoxLen
       ? css`
           // turn on
           font-size: 1.7rem;
           cursor: pointer;
           font-weight: 800;
           border: 1px solid ${point};
-          border-bottom: 4px solid ${point};
+          border-bottom: 2px solid ${point};
           color: rgba(255, 255, 255, 0.8);
           background-color: ${lighten(0.01, point)};
         `
@@ -39,15 +51,17 @@ const DoorWrapper = styled.div<DoorWrapperProps>`
           // turn off
           font-size: 1.5rem;
           cursor: not-allowed;
-          border: 3px solid ${darken(0.3, main)};
-          border-bottom: 8px solid ${darken(0.4, main)};
+          border: 2px solid ${darken(0.3, main)};
+          border-bottom: 3px solid ${darken(0.4, main)};
           background-color: ${darken(0.5, main)};
           color: rgba(255, 255, 255, 0.2);
         `;
   }}
 `;
 
-const ExitBox = styled.div`
+const ExitText = styled.div`
+  position: absolute;
+  z-index: 100;
   color: inherit;
   font-weight: inherit;
   font-size: inherit;
@@ -67,31 +81,52 @@ const ExitBox = styled.div`
   );
 `;
 
+const ExitBox = styled.div`
+  position: absolute;
+  z-index: 99;
+  bottom: -1rem;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: transparent;
+`;
+
 function Door() {
   const exitBox = useSelector((state: RootState) => state.drink.exitBox);
   const dispatch = useDispatch();
-  const [isFilled, setIsFilled] = useState(false);
+  const [exitBoxLen, setExitBoxLen] = useState(0);
+  const [renderCans, pushExitCan, popExitCan, resetExitCan] = useExitCans();
 
   useEffect(() => {
-    if (exitBox.length > 0) {
-      setIsFilled(true);
+    const curExitBoxLen = exitBox.length;
+    if (curExitBoxLen > 0) {
+      if (curExitBoxLen > exitBoxLen) {
+        setExitBoxLen(curExitBoxLen);
+        pushExitCan(exitBox[curExitBoxLen - 1]);
+      } else if (curExitBoxLen < exitBoxLen) {
+        setExitBoxLen(curExitBoxLen);
+        popExitCan();
+      }
     } else {
-      setIsFilled(false);
+      setExitBoxLen(0);
+      resetExitCan();
     }
   }, [exitBox.length]);
 
   const handleExitBox = () => {
-    if (!isFilled) {
+    if (!exitBoxLen) {
       return;
     }
     exitBox.map((drinkKey: string) => {
       dispatch(getDrink(drinkKey));
     });
   };
+
   return (
     <DoorArea>
-      <DoorWrapper isFilled={isFilled} onClick={handleExitBox}>
-        <ExitBox>{isFilled ? 'CLICK!' : 'DRINK'}</ExitBox>
+      <DoorWrapper exitBoxLen={exitBoxLen} onClick={handleExitBox}>
+        <ExitBox>{renderCans()}</ExitBox>
+        <ExitText>{exitBoxLen ? 'CLICK!' : 'DRINK'}</ExitText>
       </DoorWrapper>
     </DoorArea>
   );

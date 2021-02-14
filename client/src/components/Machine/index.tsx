@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import ToyMakersLogo from '../../assets/img/toy_logo.png';
 import ReactLogo from '../../assets/img/react_logo.png';
 import Shelf from './Shelf';
@@ -15,7 +15,32 @@ import { RootState } from '../../modules';
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from '../../constants/itemType';
 
-const MachineWrapper = styled.div`
+const kick = keyframes`
+  0%, 50% {
+    transform: rotate(0deg);
+  }
+  5%, 15%, 25%, 35%, 45% {
+    transform: rotate(8deg);
+  }
+  10%, 20%, 30%, 40% {
+    transform: rotate(-8deg);
+  }
+`;
+
+interface MachineWrapperProps {
+  isKicked: any;
+}
+
+const MachineWrapper = styled.div<MachineWrapperProps>`
+  ${(props): any => {
+    return (
+      props.isKicked &&
+      css`
+        animation: ${kick} 3s ease-in 0.5s alternate;
+      `
+    );
+  }};
+
   position: relative;
   width: 42rem;
   height: 65rem;
@@ -135,6 +160,7 @@ function index() {
     (state: RootState) => state.coin.coinInMachine
   );
   const [isFilled, setIsFilled] = useState(false);
+  const [isKicked, setIsKicked] = useState(false);
 
   useEffect(() => {
     if (coinInMachine > 0) {
@@ -147,7 +173,10 @@ function index() {
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.KICK,
     drop: () => {
-      console.log('You kicked the machine.');
+      setIsKicked(true);
+      setTimeout(() => {
+        setIsKicked(false);
+      }, 3000);
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -155,7 +184,7 @@ function index() {
   });
 
   return (
-    <MachineWrapper ref={drop}>
+    <MachineWrapper isKicked={isKicked} ref={drop}>
       <TopArea>
         <LogoArea>
           <img src={ToyMakersLogo} />
