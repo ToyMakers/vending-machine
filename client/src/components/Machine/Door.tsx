@@ -1,20 +1,10 @@
 import { darken, lighten } from 'polished';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled, { css, keyframes } from 'styled-components';
-import { useCans } from '../../hooks/useCans';
+import styled, { css } from 'styled-components';
 import { useExitCans } from '../../hooks/useExitCans';
 import { RootState } from '../../modules';
 import { getDrink } from '../../modules/drink';
-
-const fall = (degVal: any) => keyframes`
-  from {
-    transform: translateY(-20px) rotate(10deg);
-  }
-  to {
-    transform: translateY(10px) rotate(${degVal}deg);
-  }
-`;
 
 interface DoorWrapperProps {
   exitBoxLen: any;
