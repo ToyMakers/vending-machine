@@ -9,7 +9,7 @@ export const delayAction = (store: any) => (next: any) => (
   if (action.isDelay) {
     setTimeout(() => {
       return next(action.delayedAction);
-    }, 2000);
+    }, 3000);
   } else {
     return next(action); // go to reducer
   }
