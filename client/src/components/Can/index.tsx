@@ -28,7 +28,6 @@ const CanBlock = styled.div<CanBlockProps>`
     `}
   height: 6.5rem;
   position: relative;
-  margin-bottom: 2px;
   border-radius: 0.4rem;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
@@ -157,39 +156,37 @@ const InventoryCanTag = styled(CanTag)`
   background-color: #272424;
 `;
 
-interface CanProps extends DrinkType {
+interface CanProps {
+  canObj: DrinkType;
   toggleLight: boolean;
   isSoldOut: boolean;
+  isMachine: boolean;
   isInventory: boolean;
   canNumber: number;
   onClick?: () => void;
 }
 
 function Can({
-  drinkName,
-  outerColor,
-  innerColor,
-  price,
-  isFat,
+  canObj,
   toggleLight,
+  isMachine,
   isSoldOut,
   isInventory,
   canNumber,
   onClick,
 }: CanProps) {
-  const priceWithComma = putComma(price);
+  const priceWithComma = putComma(canObj.price);
   return (
     <CanWrapper>
       <CanBlock
-        outerColor={outerColor}
-        innerColor={innerColor}
-        isFat={isFat}
+        outerColor={canObj.outerColor}
+        innerColor={canObj.innerColor}
+        isFat={canObj.isFat}
         isInventory={isInventory}
       >
-        <CanText>{drinkName}</CanText>
-        {isInventory ? (
-          <InventoryCanTag>{canNumber}</InventoryCanTag>
-        ) : (
+        <CanText>{canObj.drinkName}</CanText>
+        {isInventory && <InventoryCanTag>{canNumber}</InventoryCanTag>}
+        {isMachine && (
           <CanTag toggleLight={toggleLight} onClick={onClick}>
             <p>
               {isSoldOut ? (
@@ -209,10 +206,9 @@ function Can({
 }
 
 Can.defaultProps = {
-  price: 0,
-  isFat: false,
   toggleLight: false,
   isSoldOut: false,
+  isMachine: false,
   isInventory: false,
   canNumber: 0,
 };

@@ -8,36 +8,17 @@ import { buyDrink } from '../modules/drink';
 
 export const useCans = (
   drinkKeyArr: string[],
+  isMachine: boolean,
   isInventory: boolean
 ): [() => JSX.Element[]] => {
   const dispatch = useDispatch();
+
   const RenderedCans: JSX.Element[] = [];
   const renderCans: () => JSX.Element[] = () => {
     return RenderedCans;
   };
 
-  if (isInventory) {
-    // render cans in inverntory
-    const canInInventory = useSelector(
-      (state: RootState) => state.drink.inventory
-    );
-
-    for (const drinkKey in canInInventory) {
-      const canObj = drinkData[drinkKey];
-      canInInventory[drinkKey] !== 0 &&
-        RenderedCans.push(
-          <>
-            <Can
-              drinkName={canObj.drinkName}
-              outerColor={canObj.outerColor}
-              innerColor={canObj.innerColor}
-              isInventory={true}
-              canNumber={canInInventory[drinkKey]}
-            />
-          </>
-        );
-    }
-  } else {
+  if (isMachine) {
     // render cans in machine
     const coinInMachine = useSelector(
       (state: RootState) => state.coin.coinInMachine
@@ -70,11 +51,8 @@ export const useCans = (
       RenderedCans.push(
         <>
           <Can
-            drinkName={canObj.drinkName}
-            outerColor={canObj.outerColor}
-            innerColor={canObj.innerColor}
-            isFat={canObj.isFat}
-            price={canObj.price}
+            canObj={canObj}
+            isMachine={isMachine}
             toggleLight={toggleLight}
             isSoldOut={isSoldOut}
             onClick={handleClick}
@@ -82,11 +60,31 @@ export const useCans = (
         </>
       );
     }
+  } else if (isInventory) {
+    // render cans in inverntory
+    const canInInventory = useSelector(
+      (state: RootState) => state.drink.inventory
+    );
+
+    for (const drinkKey in canInInventory) {
+      const canObj = drinkData[drinkKey];
+      canInInventory[drinkKey] !== 0 &&
+        RenderedCans.push(
+          <>
+            <Can
+              canObj={canObj}
+              isInventory={true}
+              canNumber={canInInventory[drinkKey]}
+            />
+          </>
+        );
+    }
   }
   return [renderCans];
 };
 
 useCans.defaultProps = {
   drinkKeyArr: [],
+  isMachine: false,
   isInventory: false,
 };

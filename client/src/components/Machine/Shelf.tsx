@@ -5,6 +5,7 @@ import { useCans } from '../../hooks/useCans';
 
 const ShelfBox = styled.div`
   padding-top: 1.5rem;
+  padding-bottom: 0.2rem;
   width: 100%;
   background-color: ${(props) => props.theme.shelfBackground};
   display: flex;
@@ -25,7 +26,7 @@ interface ShelfProps {
 
 // note
 function Shelf({ drinkKeyArr }: ShelfProps) {
-  const [renderCans] = useCans(drinkKeyArr, false);
+  const [renderCans] = useCans(drinkKeyArr, true, false);
 
   return <ShelfBox>{renderCans()}</ShelfBox>;
 }
