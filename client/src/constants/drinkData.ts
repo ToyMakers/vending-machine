@@ -79,13 +79,13 @@ export const drinkData: SetDrinkType = {
 };
 
 export const drinkStock = {
-  coke: 10,
-  sprite: 10,
+  coke: 2,
+  sprite: 2,
   pepper: 1,
-  fanta: 5,
-  welchs: 3,
-  welchsStrawberry: 3,
-  letsbe: 5,
-  tejava: 5,
-  pokari: 5,
+  fanta: 2,
+  welchs: 2,
+  welchsStrawberry: 2,
+  letsbe: 2,
+  tejava: 2,
+  pokari: 2,
 };
