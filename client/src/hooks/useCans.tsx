@@ -70,13 +70,11 @@ export const useCans = (
       const canObj = drinkData[drinkKey];
       canInInventory[drinkKey] !== 0 &&
         RenderedCans.push(
-          <>
-            <Can
-              canObj={canObj}
-              isInventory={true}
-              canNumber={canInInventory[drinkKey]}
-            />
-          </>
+          <Can
+            canObj={canObj}
+            isInventory={true}
+            canNumber={canInInventory[drinkKey]}
+          />
         );
     }
   }
