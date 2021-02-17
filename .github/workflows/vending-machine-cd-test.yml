@@ -2,7 +2,7 @@ name: vending-machine CD tests
 on:
   push:
     branches:
-      - dev
+      - test/cd
 
 jobs:
   docker_build_push:
@@ -17,6 +17,6 @@ jobs:
         run: |
           VERSION=$(date +%s)
           cd client
-          docker build --tag ${{secrets.DOCKER_USERNAME}}/vending-machine:${VERSION} .
-          docker login -u ${{DOCKER_USERNAME}} -p ${{DOCKER_PASSWORD}}
-          docker push ${{secrets.DOCKER_USERNAME}}/vending-machine:${VERSION}
+          docker build --tag ${DOCKER_USERNAME}/vending-machine:${VERSION} .
+          docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+          docker push ${DOCKER_USERNAME}/vending-machine:${VERSION}
