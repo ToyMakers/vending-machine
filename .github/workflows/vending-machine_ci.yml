@@ -1,0 +1,16 @@
+name: vending-machine CI
+on:
+  push:
+    branches-ignore:
+      - 'main'
+
+jobs:
+  docker_build_push:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build the Docker image
+        run: |
+          cd client
+          docker build --tag ${{secrets.DOCKER_USERNAME}}/mind-detector-front:$(date +%s) .

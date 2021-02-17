@@ -1,23 +1,83 @@
-import React from 'react';
-import styled from 'styled-components';
-import Can from '../Can';
-import LogoImg from '../../styles/img/logo.png';
-import { palette } from '../../styles/theme';
+import React, { useEffect, useState } from 'react';
+import styled, { css, keyframes } from 'styled-components';
+import ToyMakersLogo from '../../assets/img/toy_logo.png';
+import ReactLogo from '../../assets/img/react_logo.png';
+import Shelf from './Shelf';
+import Counter from './Counter';
+import Slot from './Slot';
+import Door from './Door';
+import Coolor from './Coolor';
+import ReturnButton from './ReturnButton';
+import ChangeBox from './ChangeBox';
+import { darken, lighten } from 'polished';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../modules';
+import { useDrop } from 'react-dnd';
+import { ItemTypes } from '../../constants/itemType';
 
-const MachineWrapper = styled.div`
+const kick = keyframes`
+  0%, 50% {
+    transform: rotate(0deg);
+  }
+  5%, 15%, 25%, 35%, 45% {
+    transform: rotate(8deg);
+  }
+  10%, 20%, 30%, 40% {
+    transform: rotate(-8deg);
+  }
+`;
+
+interface MachineWrapperProps {
+  isKicked: any;
+}
+
+const MachineWrapper = styled.div<MachineWrapperProps>`
+  ${(props): any => {
+    return (
+      props.isKicked &&
+      css`
+        animation: ${kick} 3s ease-in 0.5s alternate;
+      `
+    );
+  }};
+
+  position: relative;
   width: 42rem;
   height: 65rem;
-  background-color: #1c9d4a;
-  box-shadow: inset 2px -2px 15px 5px #096b2b;
+  // color
+  ${(props) => {
+    const selected = props.theme.main;
+    return css`
+      background-color: ${selected};
+      box-shadow: inset 2px -2px 15px 5px ${darken(0.2, selected)};
+      &::before,
+      ::after {
+        background-color: ${darken(0.2, selected)};
+      }
+    `;
+  }}
   padding: 1.8rem;
   display: flex;
   flex-direction: column;
+  &::before {
+    left: 5px;
+  }
+  &::after {
+    right: 5px;
+  }
+  &::before,
+  ::after {
+    content: '';
+    width: 50px;
+    height: 5px;
+    position: absolute;
+    top: 100%;
+  }
 `;
 
 const LogoArea = styled.div`
   padding: 0.1rem;
   position: absolute;
-  background-color: white;
   width: 3.2rem;
   height: 3.2rem;
   img {
@@ -26,7 +86,7 @@ const LogoArea = styled.div`
   }
 `;
 
-const ShelfWrapper = styled.div`
+const TopArea = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -34,93 +94,125 @@ const ShelfWrapper = styled.div`
   padding: 2rem 0rem;
 `;
 
-const ShelfBox = styled.div`
-  padding-top: 1.5rem;
-  width: 100%;
-  background-color: ${(props) => props.theme.shelf_background};
-
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
-`;
-
 const ShelfBorder = styled.div`
   width: 100%;
   height: 2rem;
-  background-color: #f7f3f3;
+  background-color: ${(props) => props.theme.shelfBackground};
+  ${(props) => {
+    const selected = props.theme.main;
+    return css`
+      box-shadow: inset 2px 2px 4px ${lighten(0.2, selected)};
+      }
+    `;
+  }}
 `;
 
-const FatCan = styled(Can)`
-  width: 4.5rem;
+const MiddleArea = styled.div`
+  display: flex;
+  justify-content: space-between;
+  height: 10.5rem;
 `;
 
-interface CanType {
-  can_name: string;
-  outer_color: string;
-  inner_color: string;
+interface AdvertisementWrapperProps {
+  isFilled: any;
 }
 
-const coke = {
-  can_name: 'coke',
-  outer_color: palette.coke_outer,
-  inner_color: palette.coke_inner,
-};
-const sprite = {
-  can_name: 'sprite',
-  outer_color: palette.sprite_outer,
-  inner_color: palette.sprite_inner,
-};
-const pepper = {
-  can_name: 'Dr. Pepper',
-  outer_color: palette.pepper_outer,
-  inner_color: palette.pepper_inner,
-};
+const AdvertisementWrapper = styled.div<AdvertisementWrapperProps>`
+  background-color: transparent;
+  flex: 0.5;
+  width: 0rem;
+  display: flex;
+  ${(props): any => {
+    return (
+      !props.isFilled &&
+      css`
+        img {
+          filter: grayscale(80%);
+        }
+      `
+    );
+  }}
+  img {
+    margin: 5px 0px 0px 20%;
+    max-height: 70%;
+    padding: 5px;
+    background-color: black;
+    border-radius: 15%;
+  }
+`;
+
+const PaymentWrapper = styled.div`
+  flex: 0.5;
+  display: flex;
+  flex-direction: column;
+  padding: 0rem 2rem 0rem 2rem;
+`;
+
+const SlotLeverWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.3rem;
+  flex: 1;
+`;
 
 function index() {
-  // loops Objects of can datas and renders the components.
-  const loopCans = (cans: CanType[], isFat = false): JSX.Element[] => {
-    let RenderedCans: JSX.Element[];
-    if (isFat) {
-      RenderedCans = cans.map((canObj: CanType, index: number) => {
-        return (
-          <>
-            <FatCan
-              can_name={canObj.can_name}
-              outer_color={canObj.outer_color}
-              inner_color={canObj.inner_color}
-            />
-          </>
-        );
-      });
+  const coinInMachine = useSelector(
+    (state: RootState) => state.coin.coinInMachine
+  );
+  const [isFilled, setIsFilled] = useState(false);
+  const [isKicked, setIsKicked] = useState(false);
+
+  useEffect(() => {
+    if (coinInMachine > 0) {
+      setIsFilled(true);
     } else {
-      RenderedCans = cans.map((canObj: CanType, index: number) => {
-        return (
-          <>
-            <Can
-              can_name={canObj.can_name}
-              outer_color={canObj.outer_color}
-              inner_color={canObj.inner_color}
-            />
-          </>
-        );
-      });
+      setIsFilled(false);
     }
-    return RenderedCans;
-  };
+  }, [coinInMachine]);
+
+  const [{ isOver }, drop] = useDrop({
+    accept: ItemTypes.KICK,
+    drop: () => {
+      setIsKicked(true);
+      setTimeout(() => {
+        setIsKicked(false);
+      }, 3000);
+    },
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  });
 
   return (
-    <MachineWrapper>
-      <ShelfWrapper>
+    <MachineWrapper isKicked={isKicked} ref={drop}>
+      <TopArea>
         <LogoArea>
-          <img src={LogoImg} />
+          <img src={ToyMakersLogo} />
         </LogoArea>
-        <ShelfBox>{loopCans([coke, coke, coke])}</ShelfBox>
-        <ShelfBorder></ShelfBorder>
-        <ShelfBox>{loopCans([sprite, sprite, sprite])}</ShelfBox>
-        <ShelfBorder></ShelfBorder>
-        <ShelfBox>{loopCans([pepper, pepper, pepper], true)}</ShelfBox>
-        <ShelfBorder></ShelfBorder>
-      </ShelfWrapper>
+        <Shelf
+          drinkKeyArr={['welchs', 'welchsStrawberry', 'letsbe', 'tejava']}
+        />
+        <ShelfBorder />
+        <Shelf drinkKeyArr={['pokari', 'coke', 'sprite', 'fanta']} />
+        <ShelfBorder />
+        <Shelf drinkKeyArr={['pepper', 'pepper', 'pepper', 'pepper']} />
+        <ShelfBorder />
+      </TopArea>
+      <MiddleArea>
+        <AdvertisementWrapper isFilled={isFilled}>
+          <img src={ReactLogo} />
+        </AdvertisementWrapper>
+        <PaymentWrapper>
+          <Counter />
+          <SlotLeverWrapper>
+            <Slot />
+            <ReturnButton />
+            <ChangeBox />
+          </SlotLeverWrapper>
+        </PaymentWrapper>
+      </MiddleArea>
+      <Door />
+      <Coolor />
     </MachineWrapper>
   );
 }

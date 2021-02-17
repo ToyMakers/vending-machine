@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const HeaderArea = styled.header`
-  height: 10vh;
+  background-color: ${(props) => props.theme.mainBackground};
+  height: 2vh;
 `;
 
 function Header() {
