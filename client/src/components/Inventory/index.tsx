@@ -2,15 +2,8 @@ import { darken } from 'polished';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { drinkData } from '../../constants/drinkData';
+import { useCans } from '../../hooks/useCans';
 import { RootState } from '../../modules';
-import Can from '../Can';
-
-const CanArea = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: center;
-`;
 
 const InventoryWrapper = styled.div`
   width: 40rem;
@@ -39,44 +32,41 @@ const CanCounterBlock = styled.div`
   text-align: right;
   background-color: ${(props) => darken(0.1, props.theme.inventoryBackground)};
   span {
-    font-size: 2em;
+    font-size: 2.5em;
     font-weight: 700;
-    padding: 0.5rem;
   }
 `;
 
-const ItemWrapper = styled.div`
-  padding: 3rem 4.5rem;
-  flex: 1;
+const ItemArea = styled.div`
+  padding: 4rem 2.5rem 1rem 2.5rem;
   display: flex;
+  justify-content: center;
+  max-height: 30rem;
+  overflow: scroll;
+  flex: 1;
   width: 100%;
   background-color: ${(props) => props.theme.inventoryBackground};
 `;
 
+const ItemWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+`;
+
 function Inventory() {
+  const [renderCans] = useCans([], false, true);
+
   const canInInventory = useSelector(
     (state: RootState) => state.drink.inventory
   );
 
-  const loopCans = (canInInventory: {
-    [drinkey: string]: number;
-  }): JSX.Element[] => {
-    const RenderedCans: JSX.Element[] = [];
-    for (const drinkKey in canInInventory) {
-      const canObj = drinkData[drinkKey];
-      canInInventory[drinkKey] !== 0 &&
-        RenderedCans.push(
-          <CanArea>
-            <Can
-              drinkName={canObj.drinkName}
-              outerColor={canObj.outerColor}
-              innerColor={canObj.innerColor}
-              isInventory={true}
-            />
-          </CanArea>
-        );
+  const countCan = (canInInventory: { [key: string]: number }) => {
+    let totalCanNum = 0;
+    for (const canKey in canInInventory) {
+      totalCanNum += canInInventory[canKey];
     }
-    return RenderedCans;
+    return totalCanNum;
   };
   return (
     <InventoryWrapper>
@@ -84,9 +74,11 @@ function Inventory() {
         <InventoryTagBlock>My Inventory</InventoryTagBlock>
       </div>
       <CanCounterBlock>
-        <span>x 3</span>
+        <span>{countCan(canInInventory)}</span>
       </CanCounterBlock>
-      <ItemWrapper>{loopCans(canInInventory)}</ItemWrapper>
+      <ItemArea>
+        <ItemWrapper>{renderCans()}</ItemWrapper>
+      </ItemArea>
     </InventoryWrapper>
   );
 }

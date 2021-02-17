@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import styled, { css } from 'styled-components';
-import ToyMakersLogo from '../../styles/img/logo.png';
-import ReactLogo from '../../styles/img/logo192.png';
+import styled, { css, keyframes } from 'styled-components';
+import ToyMakersLogo from '../../assets/img/toy_logo.png';
+import ReactLogo from '../../assets/img/react_logo.png';
 import Shelf from './Shelf';
 import Counter from './Counter';
 import Slot from './Slot';
@@ -9,11 +9,38 @@ import Door from './Door';
 import Coolor from './Coolor';
 import ReturnButton from './ReturnButton';
 import ChangeBox from './ChangeBox';
-import { darken } from 'polished';
+import { darken, lighten } from 'polished';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../modules';
+import { useDrop } from 'react-dnd';
+import { ItemTypes } from '../../constants/itemType';
 
-const MachineWrapper = styled.div`
+const kick = keyframes`
+  0%, 50% {
+    transform: rotate(0deg);
+  }
+  5%, 15%, 25%, 35%, 45% {
+    transform: rotate(8deg);
+  }
+  10%, 20%, 30%, 40% {
+    transform: rotate(-8deg);
+  }
+`;
+
+interface MachineWrapperProps {
+  isKicked: any;
+}
+
+const MachineWrapper = styled.div<MachineWrapperProps>`
+  ${(props): any => {
+    return (
+      props.isKicked &&
+      css`
+        animation: ${kick} 3s ease-in 0.5s alternate;
+      `
+    );
+  }};
+
   position: relative;
   width: 42rem;
   height: 65rem;
@@ -70,8 +97,14 @@ const TopArea = styled.div`
 const ShelfBorder = styled.div`
   width: 100%;
   height: 2rem;
-  background-color: #f3efef;
-  box-shadow: inset 2px 2px 4px #ddd8d8;
+  background-color: ${(props) => props.theme.shelfBackground};
+  ${(props) => {
+    const selected = props.theme.main;
+    return css`
+      box-shadow: inset 2px 2px 4px ${lighten(0.2, selected)};
+      }
+    `;
+  }}
 `;
 
 const MiddleArea = styled.div`
@@ -127,6 +160,8 @@ function index() {
     (state: RootState) => state.coin.coinInMachine
   );
   const [isFilled, setIsFilled] = useState(false);
+  const [isKicked, setIsKicked] = useState(false);
+
   useEffect(() => {
     if (coinInMachine > 0) {
       setIsFilled(true);
@@ -135,15 +170,30 @@ function index() {
     }
   }, [coinInMachine]);
 
+  const [{ isOver }, drop] = useDrop({
+    accept: ItemTypes.KICK,
+    drop: () => {
+      setIsKicked(true);
+      setTimeout(() => {
+        setIsKicked(false);
+      }, 3000);
+    },
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  });
+
   return (
-    <MachineWrapper>
+    <MachineWrapper isKicked={isKicked} ref={drop}>
       <TopArea>
         <LogoArea>
           <img src={ToyMakersLogo} />
         </LogoArea>
-        <Shelf drinkKeyArr={['coke', 'coke', 'coke', 'coke']} />
+        <Shelf
+          drinkKeyArr={['welchs', 'welchsStrawberry', 'letsbe', 'tejava']}
+        />
         <ShelfBorder />
-        <Shelf drinkKeyArr={['sprite', 'sprite', 'sprite', 'sprite']} />
+        <Shelf drinkKeyArr={['pokari', 'coke', 'sprite', 'fanta']} />
         <ShelfBorder />
         <Shelf drinkKeyArr={['pepper', 'pepper', 'pepper', 'pepper']} />
         <ShelfBorder />

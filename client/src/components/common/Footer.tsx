@@ -2,10 +2,12 @@ import { darken } from 'polished';
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { respondTo } from '../../styles/mixin';
+import Kick from '../Kick';
 
 const FooterArea = styled.footer`
   font-weight: 600;
   height: 8vh;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,8 +35,9 @@ const FooterArea = styled.footer`
 function Footer() {
   return (
     <FooterArea>
-      <p>Toy Makers</p>
-      <a href="https://github.com/ToyMakers">GitHub</a>
+      <Kick />
+      <p>made by</p>
+      <a href="https://github.com/seung-00">seung-00</a>
     </FooterArea>
   );
 }

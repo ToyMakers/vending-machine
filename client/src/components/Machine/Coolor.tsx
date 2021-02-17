@@ -10,7 +10,7 @@ const CoolorWrapper = styled.div`
 const CoolorBox = styled.div`
   margin-top: auto;
   width: 100%;
-  height: 30px;
+  height: 3rem;
   ${(props) => {
     const selected = props.theme.main;
     return css`
