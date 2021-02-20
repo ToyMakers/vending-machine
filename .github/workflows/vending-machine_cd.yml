@@ -1,4 +1,4 @@
-name: vending-machine CD tests
+name: vending-machine CD
 on:
   push:
     branches:
