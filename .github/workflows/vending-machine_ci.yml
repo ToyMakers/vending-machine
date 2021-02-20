@@ -2,7 +2,7 @@ name: vending-machine CI
 on:
   push:
     branches-ignore:
-      - 'dev' # to fix cd
+      - 'test/cd' # to fix cd
 
 jobs:
   docker_build_push:
