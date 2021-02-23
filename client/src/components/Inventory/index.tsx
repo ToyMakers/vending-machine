@@ -4,17 +4,24 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useCans } from '../../hooks/useCans';
 import { RootState } from '../../modules';
+import { respondTo } from '../../styles/mixin';
 
 const InventoryWrapper = styled.div`
-  width: 40rem;
+  ${respondTo.desktop`
+    width: 40rem;
+  `}
   flex: 1;
   color: #fff;
   display: flex;
+  justify-content: flex-end;
   flex-direction: column;
 `;
 
 const InventoryTagBlock = styled.h2`
-  display: inline-block;
+  ${respondTo.desktop`
+    display: inline-block;
+  `}
+  display: none;
   font-size: 2.2rem;
   font-weight: 700;
   text-align: center;
@@ -24,7 +31,10 @@ const InventoryTagBlock = styled.h2`
 `;
 
 const CanCounterBlock = styled.div`
-  border-radius: 0 1.5rem 0 0;
+  ${respondTo.desktop`
+    border-radius: 0 1.5rem 0 0;
+  `}
+  border-radius: 1.5rem 1.5rem 0 0;
   padding: 1rem 3rem;
   display: flex;
   justify-content: flex-end;
@@ -49,8 +59,12 @@ const ItemArea = styled.div`
 `;
 
 const ItemWrapper = styled.div`
+  ${respondTo.desktop`
+    flex-wrap: wrap;
+    flex-direction: row;
+  `}
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   width: 80%;
 `;
 

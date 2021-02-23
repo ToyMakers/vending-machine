@@ -52,7 +52,7 @@ const SlotWrapper = styled.div<SlotWrapperProps>`
   position: relative;
   &::after {
     content: '';
-    width: 28px;
+    width: 3rem;
     height: 4px;
     background-color: #181818;
     position: absolute;

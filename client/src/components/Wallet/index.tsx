@@ -3,6 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../modules';
+import { respondTo } from '../../styles/mixin';
 import putComma from '../../util/putComma';
 import Coin from '../Coin';
 
@@ -13,12 +14,21 @@ const BigCoin = styled(Coin)`
 `;
 
 const WalletWrapper = styled.div`
-  width: 40rem;
+  ${respondTo.desktop`
+    width: 40rem;
+  `}
+  flex: 1;
   color: #fff;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
 `;
 
 const WalletTagBlock = styled.h2`
-  display: inline-block;
+  ${respondTo.desktop`
+    display: inline-block;
+  `}
+  display: none;
   font-size: 2.2rem;
   font-weight: 700;
   text-align: center;
@@ -28,7 +38,10 @@ const WalletTagBlock = styled.h2`
 `;
 
 const BalanceBlock = styled.div`
-  border-radius: 0 1.5rem 0 0;
+  ${respondTo.desktop`
+    border-radius: 0 1.5rem 0 0;
+  `}
+  border-radius: 1.5rem 1.5rem 0 0;
   padding: 1rem 3rem;
   display: flex;
   justify-content: flex-end;
@@ -43,9 +56,15 @@ const BalanceBlock = styled.div`
 `;
 
 const CoinBlock = styled.div`
+  ${respondTo.desktop`
+    flex-flow: none;
+  `}
   padding: 3rem 2rem;
   display: flex;
+  flex: 1;
+  flex-flow: row wrap;
   justify-content: space-around;
+  max-height: 30rem;
   align-items: center;
   width: 100%;
   background-color: ${(props) => props.theme.walletBackground};
@@ -58,7 +77,9 @@ function Wallet() {
   const coinInWalletWithComma = putComma(coinInWallet);
   return (
     <WalletWrapper>
-      <WalletTagBlock>My Wallet</WalletTagBlock>
+      <div>
+        <WalletTagBlock>My Wallet</WalletTagBlock>
+      </div>
       <BalanceBlock>
         <span>₩ {coinInWalletWithComma}</span>
       </BalanceBlock>

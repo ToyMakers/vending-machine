@@ -5,14 +5,19 @@ import Header from '../components/common/Header';
 import Inventory from '../components/Inventory';
 import Machine from '../components/Machine';
 import Wallet from '../components/Wallet';
-import Kick from '../components/Kick';
+import { respondTo } from '../styles/mixin';
 
 const MainPageWrapper = styled.div`
+  ${respondTo.desktop`
+    flex-direction: row;
+    `}
+  overflow: scroll;
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 90vh;
+  height: 87vh;
   background-color: ${(props) => props.theme.mainBackground};
   ${(props: any): any => {
     const mainBackground1 = '#2c2c54';
@@ -31,19 +36,32 @@ const MainPageWrapper = styled.div`
   }}
 `;
 
+const RespondMargin = styled.div`
+  margin: 0rem 2rem;
+  ${respondTo.desktop`
+    margin: 2rem 0rem;
+  `}
+`;
+
 const MachineArea = styled.div`
   height: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  flex-direction: column;
 `;
 
 const UserArea = styled.div`
-  padding: 5% 0rem;
+  ${respondTo.desktop`
+    flex-direction: column;
+    width: auto;
+  `}
+  max-width: 85vw;
+  width: 100%;
+  padding: 3% 0rem;
   height: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  flex-direction: row;
 `;
 
 function MainPage() {
@@ -57,7 +75,7 @@ function MainPage() {
         <div style={{ margin: '0rem 2rem' }} />
         <UserArea>
           <Wallet />
-          <div style={{ margin: '2rem 0rem' }} />
+          <RespondMargin />
           <Inventory />
         </UserArea>
       </MainPageWrapper>

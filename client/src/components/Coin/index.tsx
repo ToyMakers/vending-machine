@@ -21,6 +21,7 @@ const CoinWrapper = styled.button<CoinWrapperProps>`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 1rem;
   transform: translate(0, 0);
 `;
 
