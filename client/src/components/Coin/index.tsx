@@ -4,7 +4,7 @@ import TakeMoney from '../../assets/img/take_money.png';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { ItemTypes } from '../../constants/itemType';
-import { pushCoin } from '../../modules/coin';
+import { pushCoin, toggleCoinDragging } from '../../modules/coin';
 import putComma from '../../util/putComma';
 
 interface CoinWrapperProps {
@@ -59,9 +59,11 @@ function Coin({ moneyValue, isBig }: CoinProps) {
     item: { type: ItemTypes.COIN },
     begin: (monitor) => {
       console.log(`${moneyValueComma} dragging begin`);
+      dispatch(toggleCoinDragging());
     },
     end: (item, monitor) => {
       console.log(`${moneyValueComma} dragging end`);
+      dispatch(toggleCoinDragging());
       if (!monitor.didDrop()) {
         return;
       }
