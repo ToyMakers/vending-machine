@@ -13,4 +13,4 @@ jobs:
       - name: Build the Docker image
         run: |
           cd client
-          docker build --tag ${{secrets.DOCKER_USERNAME}}/mind-detector-front:$(date +%s) .
+          docker build --tag ${{secrets.DOCKER_USERNAME}}/vending-machine:$(date +%s) .
