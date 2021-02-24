@@ -44,23 +44,30 @@ const RespondMargin = styled.div`
 `;
 
 const MachineArea = styled.div`
+  ${respondTo.desktop`
+    align-items: flex-end;
+    justify-content: center;
+  `}
   height: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   flex-direction: column;
+  flex: 1;
 `;
 
 const UserArea = styled.div`
   ${respondTo.desktop`
     flex-direction: column;
     width: auto;
+    flex: 1;
   `}
+  flex: 0.5;
   max-width: 85vw;
   width: 100%;
   padding: 3% 0rem;
   height: 100%;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   flex-direction: row;
 `;
 

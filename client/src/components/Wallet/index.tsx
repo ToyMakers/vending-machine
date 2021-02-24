@@ -7,12 +7,6 @@ import { respondTo } from '../../styles/mixin';
 import putComma from '../../util/putComma';
 import Coin from '../Coin';
 
-const BigCoin = styled(Coin)`
-  width: 6.2rem;
-  height: 6.2rem;
-  font-size: 1.6rem;
-`;
-
 const WalletWrapper = styled.div`
   ${respondTo.desktop`
     width: 40rem;
@@ -55,16 +49,22 @@ const BalanceBlock = styled.div`
   }
 `;
 
+const CoinList = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const CoinBlock = styled.div`
   ${respondTo.desktop`
-    flex-flow: none;
+    flex-direction: row;
   `}
-  padding: 3rem 2rem;
+  height: 20rem;
+  max-height: 20rem;
+  padding: 2rem 2rem;
   display: flex;
+  flex-direction: column;
   flex: 1;
-  flex-flow: row wrap;
-  justify-content: space-around;
-  max-height: 30rem;
+  justify-content: center;
   align-items: center;
   width: 100%;
   background-color: ${(props) => props.theme.walletBackground};
@@ -84,10 +84,14 @@ function Wallet() {
         <span>₩ {coinInWalletWithComma}</span>
       </BalanceBlock>
       <CoinBlock>
-        <Coin moneyValue={100} />
-        <Coin moneyValue={500} />
-        <BigCoin moneyValue={1000} />
-        <BigCoin moneyValue={5000} />
+        <CoinList>
+          <Coin moneyValue={100} />
+          <Coin moneyValue={500} />
+        </CoinList>
+        <CoinList>
+          <Coin moneyValue={1000} isBig={true} />
+          <Coin moneyValue={5000} isBig={true} />
+        </CoinList>
       </CoinBlock>
     </WalletWrapper>
   );

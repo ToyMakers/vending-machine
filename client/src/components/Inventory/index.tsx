@@ -48,12 +48,12 @@ const CanCounterBlock = styled.div`
 `;
 
 const ItemArea = styled.div`
+  height: 20rem;
+  max-height: 20rem;
   padding: 4rem 2.5rem 1rem 2.5rem;
   display: flex;
   justify-content: center;
-  max-height: 30rem;
   overflow: scroll;
-  flex: 1;
   width: 100%;
   background-color: ${(props) => props.theme.inventoryBackground};
 `;
@@ -64,6 +64,7 @@ const ItemWrapper = styled.div`
     flex-direction: row;
   `}
   display: flex;
+  height: 100%;
   flex-direction: column;
   width: 80%;
 `;

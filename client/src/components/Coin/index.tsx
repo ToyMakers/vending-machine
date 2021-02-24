@@ -2,10 +2,11 @@ import React from 'react';
 import { useDrag, DragPreviewImage } from 'react-dnd';
 import TakeMoney from '../../assets/img/take_money.png';
 import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ItemTypes } from '../../constants/itemType';
 import { pushCoin, toggleCoinDragging } from '../../modules/coin';
 import putComma from '../../util/putComma';
+import { respondTo } from '../../styles/mixin';
 
 interface CoinWrapperProps {
   isBig: any;
@@ -16,12 +17,22 @@ const CoinWrapper = styled.button<CoinWrapperProps>`
   cursor: move;
   background: linear-gradient(143deg, #b6b6b6, #ffffff 50%, #929292);
   border-radius: 100%;
-  width: 5.2rem;
-  height: 5.2rem;
+  width: 6.2rem;
+  height: 6.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 1rem;
+  ${(props): any => {
+    return (
+      props.isBig &&
+      css`
+        width: 6.8rem;
+        height: 6.8rem;
+        font-size: 2rem;
+      `
+    );
+  }}
   transform: translate(0, 0);
 `;
 
