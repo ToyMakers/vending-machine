@@ -1,46 +1,49 @@
-# Getting Started with Create React App
+# vending-machine
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple toy, vending machine, to practice react, redux and react-dnd with typescript
 
-## Available Scripts
+I'm satisfied with the results in my own way, but let me know if you find any issues.
 
-In the project directory, you can run:
+## Link
 
-### `yarn start`
+* [demo](http://49.50.172.181/)
+* [docker hub](https://hub.docker.com/repository/registry-1.docker.io/osy0056/vending-machine/tags?page=1&ordering=last_updated)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## View
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<div style="display: flex;">
+  <img src="https://user-images.githubusercontent.com/46865281/109119678-5c233180-7788-11eb-9715-618697d987b3.png" style="width: 350px; height:220px">
+  <img src="https://user-images.githubusercontent.com/46865281/109119691-604f4f00-7788-11eb-8335-fe086b74e906.png" style="width: 150px; height:220px">
+</div>
 
-### `yarn test`
+<br/>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Feature
 
-### `yarn build`
+> It does'nt support mobile because React dnd mobile touch issue
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* You can insert coins into machine to get drinks.
+* You can kick the machine to get drinks.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<br/>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Usage
 
-### `yarn eject`
+```bash
+# install and start
+cd client && yarn && yarn start
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# deployment
+docker pull osy0056/toy-machine:{tag name}
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<br/>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Stack
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+* React, Redux, React DnD
+* styled-components
+* typescript
+* docker
+* nginx
+* github action
