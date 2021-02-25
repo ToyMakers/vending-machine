@@ -10,10 +10,20 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { delayAction } from './middlewares/delayAction';
 
+const isTouchDevice = () => {
+  if ('ontouchstart' in window) {
+    alert('Sorry, this service does not support mobile.');
+    return true;
+  }
+  return false;
+};
+
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(delayAction))
 );
+
+isTouchDevice();
 
 ReactDOM.render(
   <DndProvider backend={HTML5Backend}>
