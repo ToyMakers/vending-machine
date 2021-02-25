@@ -40,3 +40,4 @@ docker pull osy0056/toy-machine:{tag name}
 * docker
 * nginx
 * github action
+* NCP
