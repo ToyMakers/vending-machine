@@ -4,14 +4,10 @@ This is a simple toy, vending machine, to practice react, redux and react-dnd wi
 
 I'm satisfied with the results in my own way, but let me know if you find any issues.
 
-<br>
-
 ## Link
 
 * [demo](http://49.50.172.181/)
 * [docker hub](https://hub.docker.com/repository/registry-1.docker.io/osy0056/vending-machine/tags?page=1&ordering=last_updated)
-
-<br>
 
 ## View
 
@@ -19,16 +15,12 @@ I'm satisfied with the results in my own way, but let me know if you find any is
   <img src="https://user-images.githubusercontent.com/46865281/109119678-5c233180-7788-11eb-9715-618697d987b3.png" width="500px;" height="320px;">
 </div>
 
-<br/>
-
 ## Feature
 
 > It does'nt support mobile because React dnd mobile touch issue
 
 * You can insert coins into machine to get drinks.
 * You can kick the machine to get drinks.
-
-<br/>
 
 ## Usage
 
@@ -39,8 +31,6 @@ cd client && yarn && yarn start
 # deployment
 docker pull osy0056/toy-machine:{tag name}
 ```
-
-<br/>
 
 ## Stack
 
