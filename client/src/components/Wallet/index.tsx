@@ -3,22 +3,26 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { RootState } from '../../modules';
+import { respondTo } from '../../styles/mixin';
 import putComma from '../../util/putComma';
 import Coin from '../Coin';
 
-const BigCoin = styled(Coin)`
-  width: 6.2rem;
-  height: 6.2rem;
-  font-size: 1.6rem;
-`;
-
 const WalletWrapper = styled.div`
-  width: 40rem;
+  ${respondTo.desktop`
+    width: 40rem;
+  `}
+  flex: 1;
   color: #fff;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
 `;
 
 const WalletTagBlock = styled.h2`
-  display: inline-block;
+  ${respondTo.desktop`
+    display: inline-block;
+  `}
+  display: none;
   font-size: 2.2rem;
   font-weight: 700;
   text-align: center;
@@ -28,7 +32,10 @@ const WalletTagBlock = styled.h2`
 `;
 
 const BalanceBlock = styled.div`
-  border-radius: 0 1.5rem 0 0;
+  ${respondTo.desktop`
+    border-radius: 0 1.5rem 0 0;
+  `}
+  border-radius: 1.5rem 1.5rem 0 0;
   padding: 1rem 3rem;
   display: flex;
   justify-content: flex-end;
@@ -42,10 +49,22 @@ const BalanceBlock = styled.div`
   }
 `;
 
-const CoinBlock = styled.div`
-  padding: 3rem 2rem;
+const CoinList = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+`;
+
+const CoinBlock = styled.div`
+  ${respondTo.desktop`
+    flex-direction: row;
+  `}
+  height: 20rem;
+  max-height: 20rem;
+  padding: 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
   align-items: center;
   width: 100%;
   background-color: ${(props) => props.theme.walletBackground};
@@ -58,15 +77,21 @@ function Wallet() {
   const coinInWalletWithComma = putComma(coinInWallet);
   return (
     <WalletWrapper>
-      <WalletTagBlock>My Wallet</WalletTagBlock>
+      <div>
+        <WalletTagBlock>My Wallet</WalletTagBlock>
+      </div>
       <BalanceBlock>
         <span>₩ {coinInWalletWithComma}</span>
       </BalanceBlock>
       <CoinBlock>
-        <Coin moneyValue={100} />
-        <Coin moneyValue={500} />
-        <BigCoin moneyValue={1000} />
-        <BigCoin moneyValue={5000} />
+        <CoinList>
+          <Coin moneyValue={100} />
+          <Coin moneyValue={500} />
+        </CoinList>
+        <CoinList>
+          <Coin moneyValue={1000} isBig={true} />
+          <Coin moneyValue={5000} isBig={true} />
+        </CoinList>
       </CoinBlock>
     </WalletWrapper>
   );
