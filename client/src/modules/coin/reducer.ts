@@ -2,6 +2,7 @@ import * as actions from './actions';
 import * as types from './types';
 
 const initialState: types.CoinState = {
+  isCoinDragging: false,
   coinInWallet: 20000,
   coinInBox: 0,
   coinInMachine: 0,
@@ -12,6 +13,11 @@ function coin(
   action: types.CoinAction
 ): types.CoinState {
   switch (action.type) {
+    case actions.TOGGLE_COIN_DRAGGING:
+      return {
+        ...state,
+        isCoinDragging: !state.isCoinDragging,
+      };
     case actions.PUSH_COIN:
       if (action.payload > state.coinInWallet) {
         alert("You don't have enough coin");

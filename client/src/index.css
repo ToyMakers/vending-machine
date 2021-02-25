@@ -13,14 +13,9 @@ html {
 
 /* Mobile First */
 html {
-  font-size: 31.25% !important;
+  font-size: 38% !important;
 }
 @media (min-width: 740px) {
-  html {
-    font-size: 46.875% !important;
-  }
-}
-@media (min-width: 1280px) {
   html {
     font-size: 62.5% !important;
   }

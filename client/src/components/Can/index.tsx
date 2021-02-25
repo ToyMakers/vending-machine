@@ -2,6 +2,7 @@ import { darken, lighten } from 'polished';
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { DrinkType } from '../../constants/drinkData';
+import { respondTo } from '../../styles/mixin';
 import putComma from '../../util/putComma';
 
 const CanWrapper = styled.div`
@@ -32,7 +33,6 @@ const CanBlock = styled.div<CanBlockProps>`
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
   font-size: 1.3rem;
-
   /* 아래 -> 위, 첫 번째 색으로 입구 부분 표현 */
   /* 왼쪽 -> 오른쪽, 20%까지 첫 번째 색, 나머지는 서서히 바뀜 */
   ${(props: any) =>
@@ -136,10 +136,14 @@ const CanTag = styled.button<CanTagProps>`
   width: 150%;
   bottom: -2rem;
   p {
+    // price or sold out
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 0rem;
     flex: 1;
     text-align: center;
+    ${respondTo.desktop`
+      font-size: 1.2rem;
+  `}
     span {
       font-size: 0.5rem;
     }

@@ -4,17 +4,24 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useCans } from '../../hooks/useCans';
 import { RootState } from '../../modules';
+import { respondTo } from '../../styles/mixin';
 
 const InventoryWrapper = styled.div`
-  width: 40rem;
+  ${respondTo.desktop`
+    width: 40rem;
+  `}
   flex: 1;
   color: #fff;
   display: flex;
+  justify-content: flex-end;
   flex-direction: column;
 `;
 
 const InventoryTagBlock = styled.h2`
-  display: inline-block;
+  ${respondTo.desktop`
+    display: inline-block;
+  `}
+  display: none;
   font-size: 2.2rem;
   font-weight: 700;
   text-align: center;
@@ -24,7 +31,10 @@ const InventoryTagBlock = styled.h2`
 `;
 
 const CanCounterBlock = styled.div`
-  border-radius: 0 1.5rem 0 0;
+  ${respondTo.desktop`
+    border-radius: 0 1.5rem 0 0;
+  `}
+  border-radius: 1.5rem 1.5rem 0 0;
   padding: 1rem 3rem;
   display: flex;
   justify-content: flex-end;
@@ -38,19 +48,24 @@ const CanCounterBlock = styled.div`
 `;
 
 const ItemArea = styled.div`
+  height: 20rem;
+  max-height: 20rem;
   padding: 4rem 2.5rem 1rem 2.5rem;
   display: flex;
   justify-content: center;
-  max-height: 30rem;
   overflow: scroll;
-  flex: 1;
   width: 100%;
   background-color: ${(props) => props.theme.inventoryBackground};
 `;
 
 const ItemWrapper = styled.div`
+  ${respondTo.desktop`
+    flex-wrap: wrap;
+    flex-direction: row;
+  `}
   display: flex;
-  flex-wrap: wrap;
+  height: 100%;
+  flex-direction: column;
   width: 80%;
 `;
 
